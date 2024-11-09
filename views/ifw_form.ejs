@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/header') %>
+  <link rel="stylesheet" href="/styles/ifw_form.css"> <!-- Custom CSS for IFW form layout -->
+</head>
+<body>
+
+  <!-- Main container for the IFW form -->
+  <div class="container">
+    <h1>Mortgage Refinance IFW Calculator</h1>
+
+    <!-- Form begins here -->
+    <form id="ifwForm" method="POST" action="/calculate_ifw">
+
+      <!-- Section 1: Loan Details (Based on the IFW worksheet fields) -->
+      <div class="form-section">
+        <h2>Loan Details</h2>
+
+        <div class="form-group">
+          <label for="loanAmount">Loan Amount:</label>
+          <input type="number" id="loanAmount" name="loanAmount" value="<%= loanAmount %>" required>
+        </div>
+
+        <div class="form-group">
+          <label for="interestRate">Interest Rate (%):</label>
+          <input type="number" step="0.01" id="interestRate" name="interestRate" value="<%= interestRate %>" required>
+        </div>
+
+        <div class="form-group">
+          <label for="termYears">Term (Years):</label>
+          <input type="number" id="termYears" name="termYears" value="<%= termYears %>" required>
+        </div>
+
+      </div>
+
+      <!-- Section 2: Calculated Results (Placeholder for dynamic JavaScript calculations) -->
+      <div class="form-section">
+        <h2>Calculated Results</h2>
+
+        <div class="result-group">
+          <label>Monthly Payment:</label>
+          <span id="monthlyPayment"></span>
+        </div>
+
+        <!-- Additional calculated fields can be added here -->
+        <div class="result-group">
+          <label>Total Interest Paid:</label>
+          <span id="totalInterest"></span>
+        </div>
+
+      </div>
+
+      <!-- Submit button (for triggering backend processing or recalculation) -->
+      <button type="submit">Calculate</button>
+      
+    </form>
+  </div>
+
+  <!-- Include custom JavaScript for IFW form calculations -->
+  <script src="/scripts/ifw_calculations.js"></script>
+
+  <%- include('partials/footer') %>
+</body>
+</html>
