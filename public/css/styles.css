@@ -74,3 +74,65 @@ h1 {
 .pac-container {
     z-index: 1051 !important;
   }
+
+.section-header {
+    background-color: #f8f9fa;
+    padding: 8px;
+    margin: 15px 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.currency-input {
+    text-align: right;
+}
+
+.percentage-input {
+    text-align: right;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.input-group {
+    margin-bottom: 0.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+.gap-section {
+    margin-bottom: 2rem;
+}
+.currency-input {
+    text-align: right;
+}
+.percent-input {
+    text-align: right;
+}
+
+/* Darker card header */
+.card-header {
+    border-bottom: 1px solid #666;
+    background-color: #f8f9fa;
+}
+/* Darker form control borders */
+.form-control {
+    border: 1px solid #666;
+}
+.form-control:focus {
+    border-color: #444;
+    box-shadow: 0 0 0 0.2rem rgba(0,0,0,0.15);
+}
+/* Darker input group text */
+.input-group-text {
+    border: 1px solid #666;
+    background-color: #e9ecef;
+}
+
+.card {
+    margin-bottom: 20px;
+    border: 1px solid #666;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
