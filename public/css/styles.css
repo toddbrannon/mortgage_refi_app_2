@@ -101,9 +101,9 @@ h1 {
 }
 
 /* Input groups */
-.input-group {
-    margin-bottom: 0.5rem;
-}
+/* .input-group {
+    margin-bottom: 0.1rem;
+} */
 
 .input-group-text {
     padding: 4px 8px;

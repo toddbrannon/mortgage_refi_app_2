@@ -154,6 +154,19 @@
                             <label>Third Processing Fee</label>
                             <input type="number" class="form-control currency-input" name="thirdProcessingFee">
                         </div>
+                        <!-- Add two rows of space -->
+                        <!-- <div class="form-group">
+                            <label class="invisible">Spacer</label>
+                            <input type="text" class="form-control invisible" disabled>
+                        </div> -->
+                        <div class="form-group">
+                            <label class="invisible">Spacer</label>
+                            <input type="text" class="form-control invisible" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label class="invisible">Spacer</label>
+                            <input type="text" class="form-control invisible" disabled>
+                        </div>
                     </div>
                 </div>
                 <div class="card mb-3 mb-md-4">
@@ -232,9 +245,31 @@
                             <label>Borrower Prepaid Fees  </label>
                             <input type="number" class="form-control currency-input" name="borrowerPrepaidFees">
                         </div>
+                        <!-- Add this to create a row of empty space -->
+                        <div class="form-group">
+                            <label class="invisible">Spacer</label>
+                            <input type="text" class="form-control invisible" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>FHA/MIP</label>
+                            <input type="text" class="form-control currency-input" name="fhaMIP2">
+                        </div>
+                        <div class="form-group">
+                            <label>Loan Amount</label>
+                            <input type="text" class="form-control currency-input" name="loanAmount">
+                        </div>
+                        <div class="form-group">
+                            <label> Paid Already by or on Behalf of Borrower</label>
+                            <input type="text" class="form-control currency-input" name="paidAlready">
+                        </div>
+                     
+                        <div class="form-group" style="background-color: lightslategray;">
+                            <label style="font-weight: bold;">Total Estimated Funds To/From You:</label>
+                            <input type="text" class="form-control currency-input" name="totalEstimatedFunds">
+                        </div>
                     </div>
                 </div>
-                <div class="card mb-3 mb-md-4">
+                <!-- <div class="card mb-3 mb-md-4">
                         
                     <div class="card-body">
                         <div class="form-group">
@@ -249,17 +284,20 @@
                             <label> Paid Already by or on Behalf of Borrower</label>
                             <input type="text" class="form-control currency-input" name="paidAlready">
                         </div>
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Total Estimated Funds From/To You: </h5>
+                     
+                        <div class="form-group" style="background-color: lightslategray;">
+                            <label style="font-weight: bold;">Total Estimated Funds To/From You:</label>
+                            <input type="text" class="form-control currency-input" name="totalEstimatedFunds">
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             
             
             <!-- Right Column Card placeholder -->
             <div class="col-12 col-md-6">
+                <!-- Loan Amount Card -->
                 <div class="card mb-3 mb-md-4">
                     <div class="card-header">
                         <h5 class="card-title mb-0">Loan Amount: </h5>
@@ -312,6 +350,10 @@
                             <label>Transfer Taxes/Tax Stamp</label>
                             <input type="text" class="form-control currency-input" name="transferTaxes">
                         </div>
+                        <!-- <div class="form-group">
+                            <label class="invisible">Spacer</label>
+                            <input type="text" class="form-control invisible" disabled>
+                        </div> -->
                     </div>
                 </div>
                 <div class="card mb-3 mb-md-4">
@@ -323,6 +365,10 @@
                             <label>Prepaid Interest</label>
                             <input type="text" class="form-control currency-input" name="prepaidInterest">
                         </div>
+                        <!-- <div class="form-group">
+                            <label class="invisible">Spacer</label>
+                            <input type="text" class="form-control invisible" disabled>
+                        </div> -->
                     </div>
                 </div>
 
@@ -347,6 +393,107 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Other: </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Remaining Buydown Balance:</label>
+                            <input type="text" class="form-control currency-input" name="remainingBuydownBalance">
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Total Estimated Monthly Housing Payment: </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Principle & Interest:</label>
+                            <input type="text" class="form-control currency-input" name="principleAndInterest">
+                        </div>
+                        <div class="form-group">
+                            <label>2nd Mtg Payment:</label>
+                            <input type="text" class="form-control currency-input" name="secondMortgagePayment">
+                        </div>
+                        <div class="form-group">
+                            <label>Taxes:</label>
+                            <input type="text" class="form-control currency-input" name="taxes">
+                        </div>
+                        <div class="form-group">
+                            <label>Hazard Insurance:</label>
+                            <input type="text" class="form-control currency-input" name="hazardInsurance">
+                        </div>
+                        <div class="form-group">
+                            <label>Mortgage Insurance:</label>
+                            <input type="text" class="form-control currency-input" name="mortgageInsurance">
+                        </div>
+                        <div class="form-group">
+                            <label>HOA:</label>
+                            <input type="text" class="form-control currency-input" name="hoa">
+                        </div>
+                        <div class="form-group" style="background-color: lightslategray;">
+                            <label style="font-weight: bold;">New Monthly Payment:</label>
+                            <input type="text" class="form-control currency-input" name="newMonthlyPayment">
+                        </div>
+                        <div class="form-group">
+                            <label>Old Monthly Payment:</label>
+                            <input type="text" class="form-control currency-input" name="oldMonthlyPayment">
+                        </div>
+                        <div class="form-group">
+                            <label>Savings:</label>
+                            <input type="text" class="form-control currency-input" name="savings">
+                        </div>
+                        <div class="form-group">
+                            <label>Payment Break Even (in months):</label>
+                            <input type="text" class="form-control" name="paymentBreakEven">
+                        </div>
+                        <div class="form-group">
+                            <label>Interest Break Even (in months):</label>
+                            <input type="text" class="form-control" name="interestBreakEven">
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Closing Schedule </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Closing Date:</label>
+                            <input type="date" class="form-control" name="closingDate">
+                        </div>
+                        <div class="form-group">
+                            <label>No Scheduled Payment:</label>
+                            <input type="date" class="form-control" name="noScheduledPayment">
+                        </div>
+                        <div class="form-group">
+                            <label>Date of 1st Payment:</label>
+                            <input type="date" class="form-control" name="dateOf1stPayment">
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Escrow Refund (mailed w/in 30 days):</label>
+                            <input type="text" class="form-control currency-input" name="escrowRefund">
+                        </div>
+                        <div class="form-group">
+                            <label>$  of Payment(s) skipped:</label>
+                            <input type="text" class="form-control currency-input" name="amtOfPaymentsSkipped">
+                        </div>
+                        <div class="form-group">
+                            <label>Total Estimated Funds From/To You:</label>
+                            <input type="text" class="form-control currency-input" name="totalEstimatedFunds">
+                        </div>
+                        <div class="form-group" style="background-color: lightseagreen;">
+                            <label style="font-weight: bold;">Surplus:</label>
+                            <input type="text" class="form-control currency-input" name="surplus">
                         </div>
                     </div>
                 </div>
