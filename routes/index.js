@@ -45,7 +45,8 @@ router.get('/', async (req, res) => {
     res.render('index', { 
       title: 'Mortgage Calculator', 
       defaultDate: defaultDate,
-      states: states 
+      states: states,
+      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
     });
   } catch (error) {
     // Render with empty states if there's an error

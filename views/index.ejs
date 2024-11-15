@@ -120,7 +120,45 @@
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= googleMapsApiKey %>&libraries=places"></script>
+    <script>
+        function initAutocomplete() {
+            const addressInput = document.getElementById('address');
+            const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+                componentRestrictions: { country: ['us'] },
+                fields: ['address_components', 'geometry'],
+                types: ['address']
+            });
+
+            autocomplete.addListener('place_changed', function() {
+                const place = autocomplete.getPlace();
+                
+                document.getElementById('locality').value = '';
+                document.getElementById('state').value = '';
+                document.getElementById('postalCode').value = '';
+
+                for (const component of place.address_components) {
+                    const componentType = component.types[0];
+
+                    switch (componentType) {
+                        case 'locality':
+                            document.getElementById('locality').value = component.long_name;
+                            break;
+
+                        case 'administrative_area_level_1':
+                            document.getElementById('state').value = component.short_name;
+                            break;
+
+                        case 'postal_code':
+                            document.getElementById('postalCode').value = component.long_name;
+                            break;
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('load', initAutocomplete);
+    </script>
     <script src="/js/script.js"></script>
-    
 </body>
 </html>
