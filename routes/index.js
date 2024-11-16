@@ -42,11 +42,13 @@ router.get('/', async (req, res) => {
     // Fetch states
     const states = await fetchStates();
     // Render with both states and your existing data
+    console.log('API Key:', process.env.GEOAPIFY_API_KEY); // Add this temporarily to debug
+    
     res.render('index', { 
       title: 'Mortgage Calculator', 
       defaultDate: defaultDate,
       states: states,
-      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
+      smartyApiKey: process.env.SMARTY_API_KEY
     });
   } catch (error) {
     // Render with empty states if there's an error

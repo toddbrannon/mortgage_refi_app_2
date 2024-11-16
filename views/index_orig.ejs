@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <button type="button" id="populateTestData" class="btn btn-secondary mt-3">Add Test Data</button>
+        <h1><%= title %></h1>
+        <form id="mortgageForm" action="/submit" method="POST" class="row g-3">
+            <div class="col-md-6">
+                <label for="borrowerName" class="form-label">Borrower Name</label>
+                <input type="text" class="form-control" id="borrowerName" name="borrowerName" required>
+            </div>
+            <div class="col-md-6">
+                <label for="mortgageBalance" class="form-label">Current 1st Mortgage Balance</label>
+                <input type="text" class="form-control" id="mortgageBalance" name="mortgageBalance" required>
+            </div>
+            <div class="col-md-6">
+                <label for="mortgageRate" class="form-label">Current 1st Mortgage Rate (%)</label>
+                <input type="number" class="form-control" id="mortgageRate" name="mortgageRate" step="0.0001" min="0" max="100" required>
+            </div>
+            <div class="col-md-6">
+                <label for="monthlyPrincipal" class="form-label">Monthly Principal</label>
+                <input type="text" class="form-control" id="monthlyPrincipal" name="monthlyPrincipal" required>
+            </div>
+            <div class="col-md-6">
+                <label for="monthlyInterest" class="form-label">Monthly Interest</label>
+                <input type="text" class="form-control" id="monthlyInterest" name="monthlyInterest" required>
+            </div>
+            <div class="col-md-6">
+                <label for="monthlyEscrow" class="form-label">Monthly Escrow</label>
+                <input type="text" class="form-control" id="monthlyEscrow" name="monthlyEscrow" required>
+            </div>
+            <div class="col-md-6">
+                <label for="escrowBalance" class="form-label">Escrow Balance</label>
+                <input type="text" class="form-control" id="escrowBalance" name="escrowBalance" required>
+            </div>
+            <div class="col-md-6">
+                <label for="lastPaymentDate" class="form-label">Last Payment Date</label>
+                <input type="date" class="form-control" id="lastPaymentDate" name="lastPaymentDate" value="<%= defaultDate %>" required>
+            </div>
+            
+            <div class="col-md-6">
+                <label for="estimatedClosingDate" class="form-label">Estimated Closing Date</label>
+                <input type="date" class="form-control" id="estimatedClosingDate" name="estimatedClosingDate" required>
+            </div>
+            <div class="col-md-6">
+                <label for="fundingDate" class="form-label">Funding Date</label>
+                <input type="date" class="form-control" id="fundingDate" name="fundingDate" required readonly>
+            </div>
+            <div class="col-md-6">
+                <label for="monthEndDate" class="form-label">Month End Date</label>
+                <input type="date" class="form-control" id="monthEndDate" name="monthEndDate" required readonly>
+            </div>
+            <div class="col-md-6">
+                <label for="noPaymentDueMonth" class="form-label">No Payment Due Month</label>
+                <input type="date" class="form-control" id="noPaymentDueMonth" name="noPaymentDueMonth" required readonly>
+            </div>
+            <div class="col-md-6">
+                <label for="estimatedEscrowRefund" class="form-label">Estimated Escrow Refund</label>
+                <input type="text" class="form-control" id="estimatedEscrowRefund" name="estimatedEscrowRefund" required>
+            </div>
+            <div class="col-md-6">
+                <label for="appraisedValue" class="form-label">Appraised Value</label>
+                <input type="text" class="form-control" id="appraisedValue" name="appraisedValue" required>
+            </div>
+            <div class="col-md-6">
+                <label for="ficoScore" class="form-label">FICO Score</label>
+                <input type="number" class="form-control" id="ficoScore" name="ficoScore" required>
+            </div>
+            <div class="col-md-6">
+                <label for="newInterestRate" class="form-label">New Interest Rate (%)</label>
+                <input type="number" class="form-control" id="newInterestRate" name="newInterestRate" step="0.0001" min="0" max="100" required>
+            </div>
+            <div class="col-md-6">
+                <label for="loanType" class="form-label">Loan Type</label>
+                <select class="form-select" id="loanType" name="loanType" required>
+                    <option value="">Select loan type</option>
+                    <option value="CONV">CONV</option>
+                    <option value="FHA">FHA</option>
+                    <option value="VA">VA</option>
+                </select>
+            </div>
+            <div class="col-12">
+              <label for="address" class="form-label">Address</label>
+              <input type="text" class="form-control" id="address" name="address" required>
+            </div>
+            
+            <div class="col-md-6">
+              <label for="locality" class="form-label">City</label>
+              <input type="text" class="form-control" id="locality" name="locality" readonly>
+            </div>
+
+            <div class="col-md-3">
+                <label for="state" class="form-label">State</label>
+                <select class="form-select" id="state" name="state" required>
+                    <option value="">Select a state</option>
+                    <% if (typeof error === 'undefined') { %>
+                        <% states.forEach(function(state) { %>
+                            <option value="<%= state.code %>"><%= state.name %></option>
+                        <% }); %>
+                    <% } %>
+                </select>
+                <% if (typeof error !== 'undefined') { %>
+                    <div class="error"><%= error %></div>
+                <% } %>
+            </div>
+            <div class="col-md-3">
+                <label for="postalCode" class="form-label">Postal Code</label>
+                <input type="text" class="form-control" id="postalCode" name="postalCode" required>
+            </div>
+            <div class="col-12 mt-4">
+                <button type="submit" class="btn btn-primary btn-lg w-100">Calculate</button>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/script.js"></script>
+    <script>
+        async function handleAddressInput(event) {
+            const input = event.target.value;
+            
+            if (input.length < 3) return; // Only search after 3 characters
+
+            try {
+                const response = await fetch(
+                    `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(input)}&apiKey=<%= geoapifyApiKey %>&format=json&filter=countrycode:us`
+                );
+                const data = await response.json();
+                
+                // Handle the autocomplete results
+                if (data.results) {
+                    const place = data.results[0]; // Using first result for now
+                    if (place) {
+                        document.getElementById('locality').value = place.city || '';
+                        document.getElementById('state').value = place.state_code || '';
+                        document.getElementById('postalCode').value = place.postcode || '';
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching address suggestions:', error);
+            }
+        }
+
+        // Add debounce to prevent too many API calls
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Add the event listener to the address input
+        const addressInput = document.getElementById('address');
+        addressInput.addEventListener('input', debounce(handleAddressInput, 300));
+    </script>
+</body>
+</html>
