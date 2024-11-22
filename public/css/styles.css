@@ -158,6 +158,13 @@ h1 {
     padding: 12px;
 }
 
+.monthly-card {
+    padding: 8px 2px 8px 10px!important;
+    margin: 0!important;
+    border: 1px solid #b81737!important;
+    border-radius: 8px;
+}
+
 /* Spacing utilities */
 .form-group {
     margin-bottom: 0.5rem;
