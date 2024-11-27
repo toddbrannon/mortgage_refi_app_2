@@ -70,44 +70,109 @@
                                     <td><input type="text" class="form-control" id="borrowerName" name="borrowerName" required></td>
                                 </tr>
                                 <tr>
-                                    <td><label class="lbl-left" for="estimatedEscrowRefund">Estimated Escrow Refund</label></td>
-                                    <td><input type="text" class="form-control currency-input" id="estimatedEscrowRefund" name="estimatedEscrowRefund" required></td>
-                                </tr>
-                                <tr>
                                     <td><label class="lbl-left" for="mortgageBalance">Current 1st Mortgage Balance</label></td>
                                     <td><input type="text" class="form-control currency-input" id="mortgageBalance" name="mortgageBalance" required></td>
-                                </tr>
-                                <tr>
-                                    <td><label class="lbl-left" for="appraisedValue">Appraised Value</label></td>
-                                    <td><input type="text" class="form-control currency-input" id="appraisedValue" name="appraisedValue" required></td>
                                 </tr>
                                 <tr>
                                     <td><label class="lbl-left" for="mortgageRate">Current 1st Mortgage Rate (%)</label></td>
                                     <td><input type="number" class="form-control" id="mortgageRate" name="mortgageRate" step="0.0001" min="0" max="100" required></td>
                                 </tr>
                                 <tr>
+                                    <td><label class="lbl-left" for="currentPITIFirst">Current P I T I 1st Mtg. </label></td>
+                                    <td><input type="text" class="form-control currency-input" id="currentPITIFirst" name="currentPITIFirst" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="currentP&IorIOFirst">Current P & I or IO Pymt 1st Mtg</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="currentP&IorIOFirst" name="currentP&IorIOFirst" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="currentMonthlyMI">Current Monthy Mortgage Ins (MI)</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="currentMonthlyMI" name="currentMonthlyMI" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="currentAnnualTaxes">Current Annual Taxes</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="currentAnnualTaxes" name="currentAnnualTaxes" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="currentAnnualInsurance">Current Annual Insurance</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="currentAnnualInsurance" name="currentAnnualInsurance" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="currentInsPolEffDate">Current Ins Policy Eff. Date</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="currentInsPolEffDate" name="currentInsPolEffDate" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="current2ndMtgBal">Current 2nd Mtg Bal</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="current2ndMtgBal" name="current2ndMtgBal" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="current2ndMtgRate">Current 2nd Mtg Rate</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="current2ndMtgRate" name="current2ndMtgRate" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="currentP&IorIOSecond">Current P & I or IO Pymt 2nd</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="currentP&IorIOSecond" name="currentP&IorIOSecond" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="totalPITIFirstSecond">Total PITI 1st & 2nd</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="totalPITIFirstSecond" name="totalPITIFirstSecond" required></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><label class="lbl-left" for="totalPIMI12Other">Total P&I & MI on 1st & 2nd & Other Debt</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="totalPIMI12Other" name="totalPIMI12Other" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="balOfOtherDebts">Bal of "Other" Debts to Payoff</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="balOfOtherDebts" name="balOfOtherDebts" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="monthlyPmtOtherDebt">Mo. Pymt of "Other" Debt to payoff</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="monthlyPmtOtherDebt" name="monthlyPmtOtherDebt" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="lastPaymentDate">Last Payment Date</label></td>
+                                    <td><input type="date" class="form-control" id="lastPaymentDate" name="lastPaymentDate" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="estClosingDate">Est. Closing Date</label></td>
+                                    <td><input type="date" class="form-control" id="estClosingDate" name="estClosingDate" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="fundingDate">Funding Date</label></td>
+                                    <td><input type="date" class="form-control" id="fundingDate" name="fundingDate" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="monthEnd">Month end</label></td>
+                                    <td><input type="date" class="form-control" id="monthEnd" name="monthEnd" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="noPaymentDueMonth">No Payment Due Month</label></td>
+                                    <td><input type="date" class="form-control" id="noPaymentDueMonth" name="noPaymentDueMonth" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="firstPmtDueDate">1st Payment due date</label></td>
+                                    <td><input type="date" class="form-control" id="firstPmtDueDate" name="firstPmtDueDate" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="lbl-left" for="estEscrowRefund">Est Escrow Refund (be conservative)</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="estEscrowRefund" name="estEscrowRefund" required></td>
+                                </tr>
+                                <!-- <tr>
+                                    <td><label class="lbl-left" for="estimatedEscrowRefund">Estimated Escrow Refund</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="estimatedEscrowRefund" name="estimatedEscrowRefund" required></td>
+                                </tr> -->
+                                <tr>
+                                    <td><label class="lbl-left" for="appraisedValue">Appraised Value</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="appraisedValue" name="appraisedValue" required></td>
+                                </tr>
+                                <tr>
                                     <td><label class="lbl-left" for="ficoScore">FICO Score</label></td>
                                     <td><input type="number" class="form-control" id="ficoScore" name="ficoScore" required></td>
                                 </tr>
                                 <tr>
-                                    <td><label class="lbl-left" for="monthlyPrincipal">Monthly Principal</label></td>
-                                    <td><input type="text" class="form-control currency-input" id="monthlyPrincipal" name="monthlyPrincipal" required></td>
-                                </tr>
-                                <tr>
                                     <td><label class="lbl-left" for="newInterestRate">New Interest Rate (%)</label></td>
                                     <td><input type="number" class="form-control" id="newInterestRate" name="newInterestRate" step="0.0001" min="0" max="100" required></td>
-                                </tr>
-                                <tr>
-                                    <td><label class="lbl-left" for="monthlyInterest">Monthly Interest</label></td>
-                                    <td><input type="text" class="form-control currency-input" id="monthlyInterest" name="monthlyInterest" required></td>
-                                </tr>
-                                <tr>
-                                    <td><label class="lbl-left" for="monthlyEscrow">Monthly Escrow</label></td>
-                                    <td><input type="text" class="form-control currency-input" id="monthlyEscrow" name="monthlyEscrow" required></td>
-                                </tr>
-                                <tr>
-                                    <td><label class="lbl-left" for="escrowBalance">Escrow Balance</label></td>
-                                    <td><input type="text" class="form-control currency-input" id="escrowBalance" name="escrowBalance" required></td>
                                 </tr>
                             </table>
                         </div>
@@ -212,5 +277,6 @@
             </div>
         </form>
     </div>
+    <script src="/js/main.js"></script>
 </body>
 </html>
