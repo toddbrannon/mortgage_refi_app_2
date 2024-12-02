@@ -1,6 +1,4 @@
-// main.js
 
-// Encapsulate all code to avoid polluting the global namespace
 (function () {
     'use strict';
 
@@ -53,9 +51,40 @@
         return (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -n));
     }
 
-    // DOMContentLoaded Event Listener
+    // Monthly Payment Calculations
+    function updateCalculations() {
+        const inputs = {
+            principleInput: parseFloat(document.getElementById('principleInput').value) || 0,
+            interestInput: parseFloat(document.getElementById('interestInput').value) || 0,
+            taxesAnnual: parseFloat(document.getElementById('taxesAnnual').value) || 0,
+            insuranceInput: parseFloat(document.getElementById('insuranceInput').value) || 0,
+            escrowInput: parseFloat(document.getElementById('escrowInput').value) || 0
+        };
+
+        function formatResult(value) {
+            return Object.values(inputs).some(val => val !== 0) 
+                ? value.toFixed(2) 
+                : '$0.00';
+        }
+
+        const taxesMonthly = inputs.taxesAnnual / 12;
+        document.getElementById('taxesMonthly').value = formatResult(taxesMonthly);
+        document.getElementById('taxesCalc').value = formatResult(inputs.escrowInput - inputs.insuranceInput);
+        document.getElementById('insuranceCalc').value = formatResult(inputs.escrowInput - taxesMonthly);
+        document.getElementById('currentPITIFirst').value = formatResult(inputs.principleInput + inputs.interestInput + taxesMonthly + inputs.insuranceInput);
+        document.getElementById('currentP&IorIOFirst').value = formatResult(inputs.principleInput + inputs.interestInput);
+        document.getElementById('currentMonthlyMI').value = formatResult(inputs.principleInput + inputs.interestInput + inputs.escrowInput);
+        document.getElementById('totalPITIFirstSecond').value = formatResult()
+        
+        // New calculations
+        const currentAnnualTaxes = taxesMonthly * 12;
+        const currentAnnualInsurance = inputs.insuranceInput;
+        
+        document.getElementById('currentAnnualTaxes').value = formatResult(currentAnnualTaxes);
+        document.getElementById('currentAnnualInsurance').value = formatResult(currentAnnualInsurance);
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
-        // Form Elements
         const form = document.getElementById('mortgageForm');
         const ifwForm = document.getElementById('ifwForm');
         const currencyInputs = [
@@ -63,15 +92,36 @@
             'monthlyEscrow', 'escrowBalance', 'estimatedEscrowRefund', 'appraisedValue'
         ];
 
+        // Required fields and calculated fields setup
+        ['principleInput', 'interestInput', 'escrowInput', 'escrowBalanceInput'].forEach(id => {
+            const input = document.getElementById(id);
+            if (input) {
+                input.required = true;
+            }
+        });
+
+        const calculatedFields = [
+            'taxesMonthly', 'taxesCalc', 'insuranceCalc', 'currentPITIFirst',
+            'currentP&IorIOFirst', 'currentMonthlyMI', 'currentAnnualTaxes', 'currentAnnualInsurance'
+        ];
+
+        calculatedFields.forEach(id => {
+            const field = document.getElementById(id);
+            if (field) {
+                field.readOnly = true;
+                field.value = '$0.00';
+                field.style.backgroundColor = '#C6FB9D';
+                field.style.cursor = 'not-allowed';
+            }
+        });
+
         // Link Escrow Balance to Estimated Escrow Refund
         const escrowBalance = document.getElementById('escrowBalance');
         const estimatedEscrowRefund = document.getElementById('estimatedEscrowRefund');
-
         if (escrowBalance && estimatedEscrowRefund) {
             escrowBalance.addEventListener('input', function () {
                 estimatedEscrowRefund.value = this.value;
             });
-
             escrowBalance.addEventListener('blur', function () {
                 estimatedEscrowRefund.dispatchEvent(new Event('blur'));
             });
@@ -80,21 +130,31 @@
         // Currency Input Formatting
         currencyInputs.forEach(id => {
             const input = document.getElementById(id);
-            let rawValue = '';
-
-            input.addEventListener('input', function (e) {
-                rawValue = e.target.value.replace(/[^\d.]/g, '');
-                e.target.value = rawValue;
-            });
-
-            input.addEventListener('blur', function (e) {
-                e.target.value = formatCurrency(rawValue);
-            });
-
-            input.addEventListener('focus', function (e) {
-                e.target.value = rawValue;
-            });
+            if (input) {
+                let rawValue = '';
+                input.addEventListener('input', function (e) {
+                    rawValue = e.target.value.replace(/[^\d.]/g, '');
+                    e.target.value = rawValue;
+                });
+                input.addEventListener('blur', function (e) {
+                    e.target.value = formatCurrency(rawValue);
+                });
+                input.addEventListener('focus', function (e) {
+                    e.target.value = rawValue;
+                });
+            }
         });
+
+        // Add event listeners for calculation updates
+        ['principleInput', 'interestInput', 'taxesAnnual', 'insuranceInput', 'escrowInput'].forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.addEventListener('input', updateCalculations);
+            }
+        });
+
+        // Initial calculation
+        updateCalculations();
 
         // Rate Input Limitation
         const rateInput = document.getElementById('mortgageRate');
@@ -111,7 +171,6 @@
         if (form) {
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
-
                 let isValid = true;
                 form.querySelectorAll('input').forEach(input => {
                     if (!input.value.trim()) {
@@ -125,7 +184,9 @@
                 if (isValid) {
                     currencyInputs.forEach(id => {
                         const input = document.getElementById(id);
-                        input.value = formatCurrency(input.value);
+                        if (input) {
+                            input.value = formatCurrency(input.value);
+                        }
                     });
                     this.submit();
                 } else {
@@ -187,22 +248,16 @@
         if (ifwForm) {
             ifwForm.addEventListener('submit', function (e) {
                 e.preventDefault();
-            
-                // Retrieve and parse input values
                 const loanAmount = parseFloat(document.getElementById('loanAmount').value.replace(/[^0-9.-]+/g, ''));
                 const interestRate = parseFloat(document.getElementById('interestRate').value);
                 const termYears = parseInt(document.getElementById('termYears').value, 10);
-            
-                // Validate inputs
+
                 if (isNaN(loanAmount) || isNaN(interestRate) || isNaN(termYears)) {
                     alert('Please enter valid numbers for loan amount, interest rate, and term.');
                     return;
                 }
-            
-                // Calculate monthly payment
+
                 const monthlyPayment = calculateMonthlyPayment(loanAmount, interestRate, termYears);
-            
-                // Display the result
                 const resultElement = document.getElementById('monthlyPaymentResult');
                 if (resultElement) {
                     resultElement.textContent = `Estimated Monthly Payment: ${formatCurrency(monthlyPayment.toFixed(2))}`;
@@ -210,5 +265,6 @@
                     alert(`Estimated Monthly Payment: ${formatCurrency(monthlyPayment.toFixed(2))}`);
                 }
             });
-        }})
-})
+        }
+    });
+})();
