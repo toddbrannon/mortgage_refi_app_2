@@ -56,7 +56,8 @@
 </head>
 <body>
     <div class="container">
-        <button type="button" id="populateTestData" class="btn btn-secondary mt-3">Add Test Data</button>
+        <h1 class="mb-4"><%= title %></h1>
+        <!-- <button type="button" id="populateTestData" class="btn btn-secondary mt-3">Add Test Data</button> -->
         <form id="mortgageForm" action="/submit" method="POST">
             <div class="card mb-4">
                 <div class="card-body">
@@ -75,15 +76,18 @@
                                 </tr>
                                 <tr>
                                     <td><label class="lbl-left" for="mortgageRate">Current 1st Mortgage Rate (%)</label></td>
-                                    <td><input type="number" class="form-control" id="mortgageRate" name="mortgageRate" step="0.0001" min="0" max="100" required></td>
+                                    <td>
+                                        <input type="text" class="form-control percentage-input" id="mortgageRate" 
+                                               name="mortgageRate" required style="text-align: right;">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><label class="lbl-left" for="currentPITIFirst">Current P I T I 1st Mtg. </label></td>
                                     <td><input type="text" class="form-control currency-input" id="currentPITIFirst" name="currentPITIFirst" required></td>
                                 </tr>
                                 <tr>
-                                    <td><label class="lbl-left" for="currentP&IorIOFirst">Current P & I or IO Pymt 1st Mtg</label></td>
-                                    <td><input type="text" class="form-control currency-input" id="currentP&IorIOFirst" name="currentP&IorIOFirst" required></td>
+                                    <td><label class="lbl-left" for="currentPandIorIOFirst">Current P & I or IO Pymt 1st Mtg</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="currentPandIorIOFirst" name="currentPandIorIOFirst" required></td>
                                 </tr>
                                 <tr>
                                     <td><label class="lbl-left" for="currentMonthlyMI">Current Monthy Mortgage Ins (MI)</label></td>
@@ -110,8 +114,8 @@
                                     <td><input type="text" class="form-control currency-input" id="current2ndMtgRate" name="current2ndMtgRate" required></td>
                                 </tr>
                                 <tr>
-                                    <td><label class="lbl-left" for="currentP&IorIOSecond">Current P & I or IO Pymt 2nd</label></td>
-                                    <td><input type="text" class="form-control currency-input" id="currentP&IorIOSecond" name="currentP&IorIOSecond" required></td>
+                                    <td><label class="lbl-left" for="currentPandIorIOSecond">Current P & I or IO Pymt 2nd</label></td>
+                                    <td><input type="text" class="form-control currency-input" id="currentPandIorIOSecond" name="currentPandIorIOSecond" required></td>
                                 </tr>
                                 <tr>
                                     <td><label class="lbl-left" for="totalPITIFirstSecond">Total PITI 1st & 2nd</label></td>

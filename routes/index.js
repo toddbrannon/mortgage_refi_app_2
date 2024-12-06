@@ -46,7 +46,7 @@ router.get('/', async (req, res) => {
     console.log('API Key:', process.env.GEOAPIFY_API_KEY); // Add this temporarily to debug
     
     res.render('index', { 
-      title: 'Mortgage Calculator', 
+      title: 'Input Form', 
       defaultDate: defaultDate,
       states: states,
       smartyApiKey: process.env.SMARTY_API_KEY

@@ -25,6 +25,16 @@
         });
     }
 
+    function standardFormatCurrency(value) {
+        const numValue = parseFloat(value) || 0;
+        return numValue.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
     function addBusinessDays(date, days) {
         let result = new Date(date);
         let addedDays = 0;
@@ -74,7 +84,8 @@
         document.getElementById('currentPITIFirst').value = formatResult(inputs.principleInput + inputs.interestInput + taxesMonthly + inputs.insuranceInput);
         document.getElementById('currentP&IorIOFirst').value = formatResult(inputs.principleInput + inputs.interestInput);
         document.getElementById('currentMonthlyMI').value = formatResult(inputs.principleInput + inputs.interestInput + inputs.escrowInput);
-        document.getElementById('totalPITIFirstSecond').value = formatResult()
+        document.getElementById('totalPITIFirstSecond').value = formatResult(inputs.currentPITIFirst + inputs.currentPandIorIOSecond)
+        document.getElementById('totalPIMI12Other').value = formatResult(inputs.currentPandIorIOFirst + inputs.currentMonthlyMI + inputs.currentPandIorIOSecond + inputs.monthlyPmtOtherDebt);
         
         // New calculations
         const currentAnnualTaxes = taxesMonthly * 12;
@@ -83,6 +94,14 @@
         document.getElementById('currentAnnualTaxes').value = formatResult(currentAnnualTaxes);
         document.getElementById('currentAnnualInsurance').value = formatResult(currentAnnualInsurance);
     }
+
+    document.querySelectorAll('.currency-input').forEach(input => {
+        input.addEventListener('blur', function() {
+            this.value = standardFormatCurrency(this.value);
+        });
+    });
+
+    
 
     document.addEventListener('DOMContentLoaded', function () {
         const form = document.getElementById('mortgageForm');
@@ -102,7 +121,8 @@
 
         const calculatedFields = [
             'taxesMonthly', 'taxesCalc', 'insuranceCalc', 'currentPITIFirst',
-            'currentP&IorIOFirst', 'currentMonthlyMI', 'currentAnnualTaxes', 'currentAnnualInsurance'
+            'currentP&IorIOFirst', 'currentMonthlyMI', 'currentAnnualTaxes', 'currentAnnualInsurance',
+            'totalPITIFirstSecond', 'totalPIMI12Other'
         ];
 
         calculatedFields.forEach(id => {
@@ -241,6 +261,34 @@
                 ['mortgageBalance', 'monthlyPrincipal', 'monthlyInterest', 'monthlyEscrow', 'escrowBalance', 'appraisedValue'].forEach(id => {
                     document.getElementById(id).dispatchEvent(new Event('blur'));
                 });
+            });
+        }
+
+        function formatPercentage(value) {
+            value = value.replace(/[^\d.]/g, '');
+            let numValue = parseFloat(value);
+            if (isNaN(numValue)) {
+                return '';
+            }
+            return numValue + '%';
+        }
+        
+        // Percentage Input Formatting
+        const percentageInput = document.getElementById('mortgageRate');
+        if (percentageInput) {
+            let rawValue = '';
+            
+            percentageInput.addEventListener('input', function(e) {
+                rawValue = e.target.value.replace(/[^\d.]/g, '');
+                e.target.value = rawValue;
+            });
+        
+            percentageInput.addEventListener('blur', function(e) {
+                e.target.value = formatPercentage(rawValue);
+            });
+        
+            percentageInput.addEventListener('focus', function(e) {
+                e.target.value = rawValue;
             });
         }
 

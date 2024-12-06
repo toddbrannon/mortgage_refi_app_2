@@ -257,3 +257,8 @@ h1 {
         font-size: 16px;
     }
 }
+
+.percentage-input {
+    text-align: right;
+    padding-right: 5px;
+}
