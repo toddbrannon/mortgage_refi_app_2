@@ -1,0 +1,86 @@
+<%- include('partials/header', { title: 'Escrow Details', activeTab: 'escrow' }) %>
+
+<div class="container">
+  <!-- Prepaid Interest & Escrow Section -->
+  <h3>Prepaid Interest & Escrow</h3>
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label for="taxes" class="form-label">Taxes</label>
+      <input type="text" id="taxes" name="taxes" class="form-control" readonly>
+    </div>
+    <div class="col-md-4">
+      <label for="taxesPerMonth" class="form-label">Per Month est.</label>
+      <input type="text" id="taxesPerMonth" name="taxesPerMonth" class="form-control" readonly>
+    </div>
+    <div class="col-md-4">
+      <label for="taxesMonths" class="form-label"># of mos.</label>
+      <input type="number" id="taxesMonths" name="taxesMonths" class="form-control" readonly>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label for="insurance" class="form-label">Insurance</label>
+      <input type="text" id="insurance" name="insurance" class="form-control" readonly>
+    </div>
+    <div class="col-md-4">
+      <label for="insurancePerMonth" class="form-label">Per Month est.</label>
+      <input type="text" id="insurancePerMonth" name="insurancePerMonth" class="form-control" readonly>
+    </div>
+    <div class="col-md-4">
+      <label for="insuranceMonths" class="form-label"># of mos.</label>
+      <input type="number" id="insuranceMonths" name="insuranceMonths" class="form-control" readonly>
+    </div>
+  </div>
+
+  <!-- Monthly MI -->
+  <h3>Monthly MI</h3>
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label for="monthlyMI" class="form-label">Monthly MI</label>
+      <input type="text" id="monthlyMI" name="monthlyMI" class="form-control" readonly>
+    </div>
+  </div>
+
+  <!-- Total Prepaid/Escrow Amount -->
+  <h3>Total Prepaid/Escrow Amount</h3>
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <label for="totalPrepaid" class="form-label">Total Prepaid/Escrow Amount</label>
+      <input type="text" id="totalPrepaid" name="totalPrepaid" class="form-control" readonly>
+    </div>
+  </div>
+
+  <!-- Loan Details -->
+  <h3>Loan Details</h3>
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label for="loanAmount" class="form-label">Loan Amount</label>
+      <input type="text" id="loanAmount" name="loanAmount" class="form-control" readonly>
+    </div>
+    <div class="col-md-4">
+      <label for="occupancy" class="form-label">Occupancy</label>
+      <input type="text" id="occupancy" name="occupancy" class="form-control" readonly>
+    </div>
+    <div class="col-md-4">
+      <label for="interestRate" class="form-label">Interest Rate</label>
+      <input type="text" id="interestRate" name="interestRate" class="form-control" readonly>
+    </div>
+  </div>
+
+  <!-- Policy Effective Date and FP Due Date -->
+  <h3>Policy and Funding Details</h3>
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label for="policyEffectiveDate" class="form-label">Policy Effective Date</label>
+      <input type="date" id="policyEffectiveDate" name="policyEffectiveDate" class="form-control" readonly>
+    </div>
+    <div class="col-md-4">
+      <label for="fpDueDate" class="form-label">FP Due Date</label>
+      <input type="number" id="fpDueDate" name="fpDueDate" class="form-control" readonly>
+    </div>
+    <div class="col-md-4">
+      <label for="fundingDate" class="form-label">Funding Date</label>
+      <input type="date" id="fundingDate" name="fundingDate" class="form-control" readonly>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<%- include('partials/header', { title: 'Pay Off Form', activeTab: 'payoff' }) %>
+
+<div class="container">
+
+
+        <form id="payoffForm" method="POST" action="/submitPayoff">
+            <!-- Funding Information -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="lastPaymentDate" class="form-label">Last Payment Date</label>
+                        <input type="date" id="lastPaymentDate" name="lastPaymentDate" class="form-control" readonly>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="fundingDate" class="form-label">Funding Date</label>
+                        <input type="date" id="fundingDate" name="fundingDate" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1st Loan Information -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3>1st Loan Details</h3>
+                    <div class="mb-3">
+                        <label for="balance1st" class="form-label">Balance on 1st</label>
+                        <input type="text" id="balance1st" name="balance1st" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="interestDue1st" class="form-label">Interest Due (+ 6-day cushion)</label>
+                        <input type="text" id="interestDue1st" name="interestDue1st" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="totalPayoff1st" class="form-label">Total 1st Payoff</label>
+                        <input type="text" id="totalPayoff1st" name="totalPayoff1st" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2nd Loan Information -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3>2nd Loan Details</h3>
+                    <div class="mb-3">
+                        <label for="balance2nd" class="form-label">Balance on 2nd</label>
+                        <input type="text" id="balance2nd" name="balance2nd" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="interestDue2nd" class="form-label">Interest Due (+ 6-day cushion)</label>
+                        <input type="text" id="interestDue2nd" name="interestDue2nd" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="totalPayoff2nd" class="form-label">Total 2nd Payoff</label>
+                        <input type="text" id="totalPayoff2nd" name="totalPayoff2nd" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="otherDebts" class="form-label">Other Debts to Payoff</label>
+                        <input type="text" id="otherDebts" name="otherDebts" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="totalPayoffs" class="form-label">Total Payoffs</label>
+                        <input type="text" id="totalPayoffs" name="totalPayoffs" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Savings Information -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3>Interest Savings</h3>
+                    <div class="mb-3">
+                        <label for="annualSavings" class="form-label">Annual Interest Savings (Y1)</label>
+                        <input type="text" id="annualSavings" name="annualSavings" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="monthlySavings" class="form-label">Interest Savings (Y1) / Month</label>
+                        <input type="text" id="monthlySavings" name="monthlySavings" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center">
+                <!-- <button type="submit" class="btn btn-primary btn-lg">Submit</button> -->
+            </div>
+        </form>
+    </div>
+</body>
+</html>

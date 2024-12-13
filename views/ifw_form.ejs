@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  
-  <link rel="stylesheet" href="/css/styles.css"> <!-- Custom CSS for IFW form layout -->
-  <title><%= title %></title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+
+<%- include('partials/header', { title: 'IFW Form', activeTab: 'ifw_form' }) %>
+
+<div class="container">
+  <form id="ifwForm" action="/ifw/submit" method="POST">
+    <!-- Existing form structure -->
+  </form>
+</div>
+
     <body class="container-fluid mt-4 px-4 px-md-5">
-        <h1 class="mb-4"><%= title %></h1>
     
         <form method="POST">
             <!-- Top Section Card -->

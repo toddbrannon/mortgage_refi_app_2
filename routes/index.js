@@ -42,19 +42,19 @@ router.get('/', async (req, res) => {
   try {
     // Fetch states
     const states = await fetchStates();
-    // Render with both states and your existing data
-    console.log('API Key:', process.env.GEOAPIFY_API_KEY); // Add this temporarily to debug
-    
+    // Render the index view with states, default date, and activeTab
     res.render('index', { 
       title: 'Input Form', 
+      activeTab: 'input',  // Mark "Input" as the active tab
       defaultDate: defaultDate,
       states: states,
       smartyApiKey: process.env.SMARTY_API_KEY
     });
   } catch (error) {
-    // Render with empty states if there's an error
+    // Render the index view with error message
     res.render('index', { 
-      title: 'Mortgage Calculator', 
+      title: 'Input Form', 
+      activeTab: 'input',  // Mark "Input" as the active tab
       defaultDate: defaultDate,
       states: [],
       error: 'Failed to load states. Please try again later.'
@@ -65,7 +65,7 @@ router.get('/', async (req, res) => {
 router.post('/submit', (req, res) => {
   // Handle form submission here
   console.log(req.body);
-  res.redirect('/');
+  res.redirect('/'); // Redirect back to the Input Form
 });
 
 module.exports = router;

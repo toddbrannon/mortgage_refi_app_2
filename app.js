@@ -23,6 +23,10 @@ app.use(express.urlencoded({ extended: true })); // Modern replacement for bodyP
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/ifw', require('./routes/ifw_form'));
+app.use('/payoff', require('./routes/payoff'));
+app.use('/escrow', require('./routes/escrow'));
+app.use('/refi_checker', require('./routes/refi_checker'));
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {

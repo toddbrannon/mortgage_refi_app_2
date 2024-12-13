@@ -262,3 +262,48 @@ h1 {
     text-align: right;
     padding-right: 5px;
 }
+
+.form-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.left-form {
+    flex: 0 0 40%; /* Adjust this value to control the left table's width */
+    margin-right: 10px;
+}
+
+.right-form {
+    flex: 1; /* Right table takes the remaining space */
+    max-width: 40%;
+}
+
+.address-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.address-container .form-group {
+    display: inline-block;
+    margin: 0 10px;
+    text-align: left;
+}
+.lbl-left {
+    font-size: small;
+}
+.lbl-right{
+    font-size: small;
+}
+.form-control {
+    height: 25px;
+}
+.breakdown-input {
+    width: 160px;
+    height: 25px;
+}
+.breakdown-header {
+    font-weight: 200;
+}
+.monthly-breakdown{
+    background-color: #D4D4D4;
+}
