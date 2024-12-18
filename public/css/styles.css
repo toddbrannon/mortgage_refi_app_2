@@ -22,6 +22,7 @@ h1 {
     margin-bottom: 20px;
     text-align: center;
     font-weight: 700;
+    width: 100%;  /* Ensure full width */
 }
 
 .card-title {
@@ -46,7 +47,7 @@ h1 {
     border-radius: 2px!important;
     padding: 4px 8px;
     font-size: 0.8rem;
-    height: 32px;
+    height: 25px;
     line-height: 1;
 }
 
@@ -60,12 +61,12 @@ h1 {
     .form-group {
         display: flex;
         align-items: center;
-        justify-content: flex-end; /* Aligns content to the right */
+        justify-content: flex-end;
         gap: 1rem;
     }
     
     .form-label {
-        flex: 0 0 50%; /* Takes up 40% of the space */
+        flex: 0 0 50%;
         text-align: left;
         margin-bottom: 0;
         padding-right: 0.5rem;
@@ -73,9 +74,9 @@ h1 {
     
     .form-control, 
     .input-group {
-        flex: 0 0 200px; /* Fixed width of 200px */
-        max-width: 200px; /* Ensures maximum width */
-        width: 200px !important; /* Forces width */
+        flex: 0 0 200px;
+        max-width: 200px;
+        width: 200px !important;
     }
     
     .currency-input,
@@ -90,7 +91,7 @@ h1 {
 
     .input-group .form-control {
         flex: 1;
-        width: calc(200px - 40px) !important; /* Accounts for the % symbol */
+        width: calc(200px - 40px) !important;
     }
     
     .input-group-text {
@@ -106,7 +107,7 @@ h1 {
     }
 
     .address-group .form-control {
-        flex: 0 0 400px !important;  /* Double the normal width */
+        flex: 0 0 400px !important;
         max-width: 400px !important;
         width: 400px !important;
     }
@@ -118,7 +119,6 @@ h1 {
         padding-right: 0.5rem;
     }
 
-    /* Override any other width constraints */
     #address {
         width: 400px !important;
         max-width: 400px !important;
@@ -127,10 +127,6 @@ h1 {
 }
 
 /* Input groups */
-/* .input-group {
-    margin-bottom: 0.1rem;
-} */
-
 .input-group-text {
     padding: 4px 8px;
     border: 1px solid #999!important;
@@ -138,7 +134,7 @@ h1 {
     border-left: none!important;
     background-color: #e9ecef;
     font-size: 0.8rem;
-    height: 32px;
+    height: 25px;
 }
 
 /* Card styles */
@@ -170,7 +166,6 @@ h1 {
     margin-bottom: 0.5rem;
 }
 
-/* Ensure proper alignment and spacing */
 .form-group label {
     text-align: right;
     display: block;
@@ -181,7 +176,7 @@ h1 {
 }
 
 #address {
-    width: 100%; /* Ensure the input spans the full width */
+    width: 100%;
 }
 
 .gap-section {
@@ -224,13 +219,148 @@ h1 {
     font-weight: bold;
 }
 
+/* Other utility classes */
+.percentage-input {
+    text-align: right;
+    padding-right: 5px;
+}
+
+.form-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.left-form {
+    flex: 0 0 40%;
+    margin-right: 10px;
+}
+
+.right-form {
+    flex: 1;
+    max-width: 40%;
+}
+
+.address-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.address-container .form-group {
+    display: inline-block;
+    margin: 0 10px;
+    text-align: left;
+}
+
+.lbl-left {
+    font-size: small;
+}
+
+.lbl-right {
+    font-size: small;
+}
+
+.breakdown-input {
+    width: 160px;
+    height: 25px;
+}
+
+.breakdown-header {
+    font-weight: 200;
+}
+
+.monthly-breakdown {
+    background-color: #D4D4D4;
+}
+
 /* Google Places Autocomplete */
 .pac-container {
     z-index: 1051 !important;
 }
+/* Refi Checker Specific Styles */
+/* Current Loan Section */
+.current-loan-container {
+    max-width: 400px;
+    width: 100%;
+    padding: 0 1rem;
+    margin-left: auto;
+    margin-right: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Current Loan section header */
+.current-loan-container h3 {
+    align-self: flex-end; /* Align header with inputs */
+    width: 300px;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.current-loan-container .input-container {
+    display: flex;
+    justify-content: flex-end; /* Push the input wrapper to the right */
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.current-loan-container .input-wrapper {
+    width: 100%;
+}
+
+.current-loan-container .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.current-loan-container .form-control {
+    width: 100% !important;
+    height: 25px !important;
+    padding: 0 8px !important;
+    line-height: 25px !important;
+    font-size: 0.8rem;
+}
+
+.new-loan-container {
+    max-width: 400px;
+    width: 100%;
+    padding: 0 1rem;
+    margin-right: auto;
+    margin-left: 0;
+}
+
+.new-loan-container .mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+/* New Loan section header */
+.new-loan-container h3 {
+    width: 300px;  /* Match input width */
+    margin-right: auto;  /* Push to left side */
+    margin-left: 0;
+    margin-bottom: 1.5rem;
+    text-align: left;  /* Align text with inputs */
+}
+
+
+.new-loan-container .form-label {
+    display: block;
+    text-align: left;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.new-loan-container .form-control {
+    width: 300px !important;
+    height: 25px !important;
+    padding: 0 8px !important;
+    line-height: 25px !important;
+    font-size: 0.8rem;
+}
+
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
     .container {
         padding: 15px;
         margin: 10px auto;
@@ -245,11 +375,29 @@ h1 {
         padding: 10px;
     }
     
-    .form-control,
-    .input-group-text {
-        font-size: 16px; /* Better for mobile touch targets */
-        height: 38px;
-        
+    .current-loan-container,
+    .new-loan-container {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 0.5rem;
+    }
+
+    .current-loan-container .input-container {
+        text-align: left;
+    }
+
+    .current-loan-container .input-wrapper,
+    .new-loan-container .form-control {
+        width: 100% !important;
+    }
+
+    .current-loan-container .form-label,
+    .new-loan-container .form-label {
+        text-align: left;
+    }
+    
+    .col-md-6 + .col-md-6 {
+        margin-top: 2rem;
     }
     
     .btn-primary {
@@ -258,52 +406,8 @@ h1 {
     }
 }
 
-.percentage-input {
-    text-align: right;
-    padding-right: 5px;
-}
-
-.form-container {
-    display: flex;
-    flex-wrap: nowrap;
-}
-
-.left-form {
-    flex: 0 0 40%; /* Adjust this value to control the left table's width */
-    margin-right: 10px;
-}
-
-.right-form {
-    flex: 1; /* Right table takes the remaining space */
-    max-width: 40%;
-}
-
-.address-container {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.address-container .form-group {
-    display: inline-block;
-    margin: 0 10px;
-    text-align: left;
-}
-.lbl-left {
-    font-size: small;
-}
-.lbl-right{
-    font-size: small;
-}
-.form-control {
-    height: 25px;
-}
-.breakdown-input {
-    width: 160px;
-    height: 25px;
-}
-.breakdown-header {
-    font-weight: 200;
-}
-.monthly-breakdown{
-    background-color: #D4D4D4;
+@media (min-width: 768px) {
+    .col-md-6:first-child {
+        border-right: 1px solid #dee2e6;
+    }
 }

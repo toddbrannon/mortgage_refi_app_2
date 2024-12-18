@@ -1,91 +1,179 @@
 <%- include('partials/header', { title: 'Refinance Checker', activeTab: 'refi_checker' }) %>
 
 <div class="container">
-  <div class="row">
+  <div class="row g-4">
     <!-- Current Loan Section -->
-    <div class="col-md-6 d-flex flex-column align-items-end"> <!-- Right-aligned with labels on the left -->
-      <h3 class="text-center">Current Loan</h3>
-      <div class="mb-3 w-100 d-flex justify-content-between">
-        <label for="currentMortgageBalance" class="form-label"><strong>Current 1st Mortgage Balance</strong></label>
-        <input type="text" id="currentMortgageBalance" name="currentMortgageBalance" class="form-control text-end" readonly style="width: 50%;">
-      </div>
-      <div class="mb-3 w-100 d-flex justify-content-between">
-        <label for="currentRate" class="form-label"><strong>Current 1st Mtg Rate</strong></label>
-        <input type="text" id="currentRate" name="currentRate" class="form-control text-end" readonly style="width: 50%;">
-      </div>
-      <div class="mb-3 w-100 d-flex justify-content-between">
-        <label for="currentYearsLeft" class="form-label"><strong>Years Left</strong></label>
-        <input type="number" id="currentYearsLeft" name="currentYearsLeft" class="form-control text-end" readonly style="width: 50%;">
-      </div>
-      <div class="mb-3 w-100 d-flex justify-content-between">
-        <label for="currentMonthlyPrincipalInterest" class="form-label"><strong>Monthly Principal & Interest</strong></label>
-        <input type="text" id="currentMonthlyPrincipalInterest" name="currentMonthlyPrincipalInterest" class="form-control text-end" readonly style="width: 50%;">
-      </div>
-      <div class="mb-3 w-100 d-flex justify-content-between">
-        <label for="currentMortgageInsurance" class="form-label"><strong>Mortgage Insurance</strong></label>
-        <input type="text" id="currentMortgageInsurance" name="currentMortgageInsurance" class="form-control text-end" readonly style="width: 50%;">
-      </div>
-      <div class="mb-3 w-100 d-flex justify-content-between">
-        <label for="currentTotalInterestRemaining" class="form-label"><strong>Total Interest Remaining</strong></label>
-        <input type="text" id="currentTotalInterestRemaining" name="currentTotalInterestRemaining" class="form-control text-end" readonly style="width: 50%;">
+    <div class="col-md-6">
+      
+      <div class="current-loan-container">
+        <h3 class="text-center mb-4">Current Loan</h3>
+        <div class="input-container">
+          <div class="input-wrapper">
+            <label for="currentMortgageBalance" class="form-label">
+              Current 1st Mortgage Balance
+            </label>
+            <input type="text" id="currentMortgageBalance" name="currentMortgageBalance" 
+                   class="form-control text-end" readonly>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <div class="input-wrapper">
+            <label for="currentRate" class="form-label">
+              Current 1st Mtg Rate
+            </label>
+            <input type="text" id="currentRate" name="currentRate" 
+                   class="form-control text-end" readonly>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <div class="input-wrapper">
+            <label for="currentYearsLeft" class="form-label">
+              Years Left
+            </label>
+            <input type="number" id="currentYearsLeft" name="currentYearsLeft" 
+                   class="form-control text-end" readonly>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <div class="input-wrapper">
+            <label for="currentMonthlyPrincipalInterest" class="form-label">
+              Monthly Principal & Interest
+            </label>
+            <input type="text" id="currentMonthlyPrincipalInterest" name="currentMonthlyPrincipalInterest" 
+                   class="form-control text-end" readonly>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <div class="input-wrapper">
+            <label for="currentMortgageInsurance" class="form-label">
+              Mortgage Insurance
+            </label>
+            <input type="text" id="currentMortgageInsurance" name="currentMortgageInsurance" 
+                   class="form-control text-end" readonly>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <div class="input-wrapper">
+            <label for="currentTotalInterestRemaining" class="form-label">
+              Total Interest Remaining
+            </label>
+            <input type="text" id="currentTotalInterestRemaining" name="currentTotalInterestRemaining" 
+                   class="form-control text-end" readonly>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- New Loan Section -->
-    <div class="col-md-6 d-flex flex-column align-items-start"> <!-- Left-aligned -->
-      <h3 class="text-center">New Loan</h3>
-      <div class="mb-3 w-100 d-flex justify-content-between">
-        <label for="newLoanAmount" class="form-label"><strong>New Loan Amount</strong></label>
-        <input type="text" id="newLoanAmount" name="newLoanAmount" class="form-control" readonly style="width: 50%;">
-      </div>
-      <div class="mb-3 w-100 d-flex justify-content-between">
-        <label for="newRate" class="form-label"><strong>New Quoted Rate</strong></label>
-        <input type="text" id="newRate" name="newRate" class="form-control" readonly style="width: 50%;">
-      </div>
-      <div class="mb-3 w-100 d-flex justify-content-between">
-        <label for="newYearsLeft" class="form-label"><strong>Years Left</strong></label>
-        <input type="number" id="newYearsLeft" name="newYearsLeft" class="form-control" readonly style="width: 50%;">
-      </div>
-      <div class="mb-3 w-100 d-flex justify-content-between">
-        <label for="newMonthlyPrincipalInterest" class="form-label"><strong>Monthly Principal & Interest</strong></label>
-        <input type="text" id="newMonthlyPrincipalInterest" name="newMonthlyPrincipalInterest" class="form-control" readonly style="width: 50%;">
-      </div>
-      <div class="mb-3 w-100 d-flex justify-content-between">
-        <label for="newMortgageInsurance" class="form-label"><strong>Monthly Mortgage Insurance</strong></label>
-        <input type="text" id="newMortgageInsurance" name="newMortgageInsurance" class="form-control" readonly style="width: 50%;">
-      </div>
-      <div class="mb-3 w-100 d-flex justify-content-between">
-        <label for="newTotalInterestRemaining" class="form-label"><strong>Total Interest Remaining</strong></label>
-        <input type="text" id="newTotalInterestRemaining" name="newTotalInterestRemaining" class="form-control" readonly style="width: 50%;">
+    <div class="col-md-6">
+      
+      <div class="new-loan-container">
+        <h3 class="text-center mb-4">New Loan</h3>
+        <div class="mb-4">
+          <label for="newLoanAmount" class="form-label">
+            New Loan Amount
+          </label>
+          <input type="text" id="newLoanAmount" name="newLoanAmount" 
+                 class="form-control text-end" readonly>
+        </div>
+
+        <div class="mb-4">
+          <label for="newRate" class="form-label">
+            New Quoted Rate
+          </label>
+          <input type="text" id="newRate" name="newRate" 
+                 class="form-control text-end" readonly>
+        </div>
+
+        <div class="mb-4">
+          <label for="newYearsLeft" class="form-label">
+            Years Left
+          </label>
+          <input type="number" id="newYearsLeft" name="newYearsLeft" 
+                 class="form-control text-end" readonly>
+        </div>
+
+        <div class="mb-4">
+          <label for="newMonthlyPrincipalInterest" class="form-label">
+            Monthly Principal & Interest
+          </label>
+          <input type="text" id="newMonthlyPrincipalInterest" name="newMonthlyPrincipalInterest" 
+                 class="form-control text-end" readonly>
+        </div>
+
+        <div class="mb-4">
+          <label for="newMortgageInsurance" class="form-label">
+            Monthly Mortgage Insurance
+          </label>
+          <input type="text" id="newMortgageInsurance" name="newMortgageInsurance" 
+                 class="form-control text-end" readonly>
+        </div>
+
+        <div class="mb-4">
+          <label for="newTotalInterestRemaining" class="form-label">
+            Total Interest Remaining
+          </label>
+          <input type="text" id="newTotalInterestRemaining" name="newTotalInterestRemaining" 
+                 class="form-control text-end" readonly>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Cost and Savings Section -->
   <div class="row mt-5">
-    <div class="col-md-6 text-end">
-      <h3>Cost and Savings</h3>
-      <div class="mb-3">
-        <label for="actualCost" class="form-label"><strong>Actual Cost of Refinance</strong></label>
-        <input type="text" id="actualCost" name="actualCost" class="form-control text-end" readonly>
-      </div>
-      <div class="mb-3">
-        <label for="fundsAtClosing" class="form-label"><strong>Funds to/from at Closing</strong></label>
-        <input type="text" id="fundsAtClosing" name="fundsAtClosing" class="form-control text-end" readonly>
+    <div class="col-md-6">
+      <h3 class="text-center mb-4">Cost and Savings</h3>
+      <div class="current-loan-container">
+        <div class="input-container">
+          <div class="input-wrapper">
+            <label for="actualCost" class="form-label">
+              Actual Cost of Refinance
+            </label>
+            <input type="text" id="actualCost" name="actualCost" 
+                   class="form-control text-end" readonly>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <div class="input-wrapper">
+            <label for="fundsAtClosing" class="form-label">
+              Funds to/from at Closing
+            </label>
+            <input type="text" id="fundsAtClosing" name="fundsAtClosing" 
+                   class="form-control text-end" readonly>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-6 text-start">
-      <div class="mb-3">
-        <label for="monthlySavings" class="form-label"><strong>Monthly Savings</strong></label>
-        <input type="text" id="monthlySavings" name="monthlySavings" class="form-control" readonly>
-      </div>
-      <div class="mb-3">
-        <label for="breakEvenMonths" class="form-label"><strong>Break Even (Months)</strong></label>
-        <input type="number" id="breakEvenMonths" name="breakEvenMonths" class="form-control" readonly>
+
+    <div class="col-md-6">
+      <div class="new-loan-container mt-4 mt-md-5">
+        <div class="mb-4">
+          <label for="monthlySavings" class="form-label">
+            Monthly Savings
+          </label>
+          <input type="text" id="monthlySavings" name="monthlySavings" 
+                 class="form-control text-end" readonly>
+        </div>
+
+        <div class="mb-4">
+          <label for="breakEvenMonths" class="form-label">
+            Break Even (Months)
+          </label>
+          <input type="number" id="breakEvenMonths" name="breakEvenMonths" 
+                 class="form-control text-end" readonly>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/main.js"></script>
 </body>
