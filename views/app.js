@@ -1,33 +1,40 @@
-<%- include('partials/header', { title: 'Mortgage Calculator', activeTab: 'input' }) %>
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const app = express();
+const port = process.env.PORT || 3000;
+require('dotenv').config();
 
-<div class="container">
-    <!-- Control buttons -->
-    <div class="btn-group mt-3 mb-3">
-        <button type="button" id="populateTestData" class="btn btn-secondary">Add Test Data</button>
-        <button type="button" id="clearForm" class="btn btn-outline-secondary">Clear Form</button>
-    </div>
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
 
-    <!-- Tab Navigation -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" data-bs-toggle="tab" href="#input">Input</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#ifw_form">IFW</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#refi_checker">REFI Checker</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#payoff">Pay Off</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#escrow">Escrow</a>
-        </li>
-    </ul>
+// View engine setup
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-    <!-- Tab Content Container -->
-    <div class="tab-content">
-        <!-- Content panes will go here -->
-    </div>
-</div>
+// Middleware
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Simplified Routes - only one main route needed
+app.use('/', require('./routes/index'));
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
+// 404 handler
+app.use((req, res) => {
+    res.status(404).render('404', { title: 'Page Not Found' });
+});
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
+
+module.exports = app;

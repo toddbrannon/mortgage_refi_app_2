@@ -411,3 +411,8 @@ h1 {
         border-right: 1px solid #dee2e6;
     }
 }
+
+.nav-tabs .nav-link.active {
+    background-color: #e9ecef;  /* Bootstrap's darker grey */
+    border-bottom-color: #e9ecef;
+}

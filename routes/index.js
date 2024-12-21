@@ -9,63 +9,58 @@ const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 let lastFetchTime = null;
 
 async function fetchStates() {
-  // Return cached data if available and not expired
-  if (statesCache && lastFetchTime && (Date.now() - lastFetchTime < CACHE_DURATION)) {
-    return statesCache;
-  }
+    // Return cached data if available and not expired
+    if (statesCache && lastFetchTime && (Date.now() - lastFetchTime < CACHE_DURATION)) {
+        return statesCache;
+    }
 
-  try {
-    const response = await axios.get('https://api.census.gov/data/2010/dec/sf1?get=NAME&for=state:*');
-    // Transform data: Skip header row (index 0) and format state data
-    const states = response.data.slice(1).map(state => ({
-      name: state[0],
-      code: state[1]
-    })).sort((a, b) => a.name.localeCompare(b.name));
-
-    // Update cache
-    statesCache = states;
-    lastFetchTime = Date.now();
-    return states;
-  } catch (error) {
-    console.error('Error fetching states:', error);
-    throw error;
-  }
+    try {
+        const response = await axios.get('https://api.census.gov/data/2010/dec/sf1?get=NAME&for=state:*');
+        const states = response.data.slice(1).map(state => ({
+            name: state[0],
+            code: state[1]
+        })).sort((a, b) => a.name.localeCompare(b.name));
+        
+        statesCache = states;
+        lastFetchTime = Date.now();
+        return states;
+    } catch (error) {
+        console.error('Error fetching states:', error);
+        throw error;
+    }
 }
 
 router.get('/', async (req, res) => {
-  // Get your existing date calculation
-  const nextMonth = new Date();
-  nextMonth.setMonth(nextMonth.getMonth() + 1);
-  nextMonth.setDate(1);
-  const defaultDate = nextMonth.toISOString().split('T')[0];
-  
-  try {
-    // Fetch states
-    const states = await fetchStates();
-    // Render the index view with states, default date, and activeTab
-    res.render('index', { 
-      title: 'Input Form', 
-      activeTab: 'input',  // Mark "Input" as the active tab
-      defaultDate: defaultDate,
-      states: states,
-      smartyApiKey: process.env.SMARTY_API_KEY
-    });
-  } catch (error) {
-    // Render the index view with error message
-    res.render('index', { 
-      title: 'Input Form', 
-      activeTab: 'input',  // Mark "Input" as the active tab
-      defaultDate: defaultDate,
-      states: [],
-      error: 'Failed to load states. Please try again later.'
-    });
-  }
+    const nextMonth = new Date();
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    nextMonth.setDate(1);
+    const defaultDate = nextMonth.toISOString().split('T')[0];
+
+    try {
+        const states = await fetchStates();
+        // Render app.ejs instead of index.ejs
+        res.render('app', {
+            title: 'Mortgage Calculator',
+            activeTab: req.query.tab || 'input',  // Allow tab selection via query param
+            defaultDate: defaultDate,
+            states: states,
+            smartyApiKey: process.env.SMARTY_API_KEY
+        });
+    } catch (error) {
+        res.render('app', {
+            title: 'Mortgage Calculator',
+            activeTab: req.query.tab || 'input',
+            defaultDate: defaultDate,
+            states: [],
+            error: 'Failed to load states. Please try again later.'
+        });
+    }
 });
 
+// Single endpoint for form submissions
 router.post('/submit', (req, res) => {
-  // Handle form submission here
-  console.log(req.body);
-  res.redirect('/'); // Redirect back to the Input Form
+    console.log(req.body);
+    res.json({ success: true }); // Return JSON response instead of redirect
 });
 
 module.exports = router;
