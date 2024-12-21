@@ -1,0 +1,510 @@
+
+<%- include('partials/header', { title: 'IFW Form', activeTab: 'ifw_form' }) %>
+
+<div class="container">
+  <form id="ifwForm" action="/ifw/submit" method="POST">
+    <!-- Existing form structure -->
+  </form>
+</div>
+
+    <body class="container-fluid mt-4 px-4 px-md-5">
+    
+        <form method="POST">
+            <!-- Top Section Card -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Left Column -->
+                        <div class="col-md-6">
+                            <!-- First Group -->
+                            <div class="gap-section">
+                                <div class="form-group">
+                                    <label>Last Payment Date</label>
+                                    <input type="date" class="form-control" name="lastPaymentDate">
+                                </div>
+                                <div class="form-group">
+                                    <label>Balance on 1st</label>
+                                    <input type="text" class="form-control currency-input" name="balanceOn1st">
+                                </div>
+                                <div class="form-group">
+                                    <label>Interest Due (+6 day cushion)</label>
+                                    <input type="text" class="form-control currency-input" name="interestDue1st">
+                                </div>
+                                <div class="form-group">
+                                    <label>Total 1st Payoff (+6 day cushion)</label>
+                                    <input type="text" class="form-control currency-input" name="total1stPayoff">
+                                </div>
+                            </div>
+    
+                            <!-- Second Group (after gap) -->
+                            <div class="gap-section">
+                                <div class="form-group">
+                                    <label>Balance on 2nd</label>
+                                    <input type="text" class="form-control currency-input" name="balanceOn2nd">
+                                </div>
+                                <div class="form-group">
+                                    <label>Interest Due (+6 day cushion)</label>
+                                    <input type="text" class="form-control currency-input" name="interestDue2nd">
+                                </div>
+                                <div class="form-group">
+                                    <label>Total 2nd Payoff</label>
+                                    <input type="text" class="form-control currency-input" name="total2ndPayoff">
+                                </div>
+                                <div class="form-group">
+                                    <label>Other Debts to Payoff at Closing</label>
+                                    <input type="text" class="form-control currency-input" name="otherDebts">
+                                </div>
+                                <div class="form-group">
+                                    <label>Total Payoffs</label>
+                                    <input type="text" class="form-control currency-input" name="totalPayoffs">
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!-- Right Column -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Funding Date</label>
+                                <input type="date" class="form-control" name="fundingDate">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Lower Section -->
+        <div class="row g-3 g-md-4">
+            <!-- Left Column Card -->
+            <div class="col-12 col-md-6">
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Property Value: </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Loan Purpose</label>
+                            <input type="text" class="form-control" name="loanPurpose">
+                        </div>
+                        <div class="form-group">
+                            <label>Program</label>
+                            <input type="text" class="form-control" name="program">
+                        </div>
+                        <div class="form-group">
+                            <label>FICO</label>
+                            <input type="number" class="form-control" name="fico" min="300" max="850">
+                        </div>
+                        <div class="form-group">
+                            <label>LTV</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control percent-input" name="ltv" step="0.01">
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Monthly Mortgage Ins.</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control percent-input" name="monthlyMortgageIns" step="0.01">
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Origination Charges: </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Admin fee</label>
+                            <input type="text" class="form-control currency-input" name="adminFee">
+                        </div>
+                        <div class="form-group">
+                            <label>Discount Points</label>
+                            <input type="text" class="form-control currency-input" name="discountPoints">
+                        </div>
+                        <div class="form-group">
+                            <label>Underwriting fee</label>
+                            <input type="text" class="form-control currency-input" name="underwritingFee">
+                        </div>
+                        <div class="form-group">
+                            <label>Lender credit</label>
+                            <input type="number" class="form-control currency-input" name="lenderCredit">
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Services Borrower Cannot Shop: </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Appraisal Fee (POC)</label>
+                            <input type="text" class="form-control currency-input" name="appraisalFee">
+                        </div>
+                        <div class="form-group">
+                            <label>Credit Report Fee</label>
+                            <input type="text" class="form-control currency-input" name="creditReportFee">
+                        </div>
+                        <div class="form-group">
+                            <label>Flood Cert</label>
+                            <input type="text" class="form-control currency-input" name="floodCert">
+                        </div>
+                        <div class="form-group">
+                            <label>Third Processing Fee</label>
+                            <input type="number" class="form-control currency-input" name="thirdProcessingFee">
+                        </div>
+                        <!-- Add two rows of space -->
+                        <!-- <div class="form-group">
+                            <label class="invisible">Spacer</label>
+                            <input type="text" class="form-control invisible" disabled>
+                        </div> -->
+                        <div class="form-group">
+                            <label class="invisible">Spacer</label>
+                            <input type="text" class="form-control invisible" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label class="invisible">Spacer</label>
+                            <input type="text" class="form-control invisible" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Services Borrower Cannot Shop For: </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Title - Closing Coordination Fee </label>
+                            <input type="text" class="form-control currency-input" name="titleClosingCoordinationFee">
+                        </div>
+                        <div class="form-group">
+                            <label>Title - Closing Fee </label>
+                            <input type="text" class="form-control currency-input" name="titleClosingFee">
+                        </div>
+                        <div class="form-group">
+                            <label>Title - e Recording Fee </label>
+                            <input type="text" class="form-control currency-input" name="titleeRecordingFee">
+                        </div>
+                        <div class="form-group">
+                            <label>Title - Lenders Coverage Premium</label>
+                            <input type="number" class="form-control currency-input" name="titleLendersCoveragePremium">
+                        </div>
+                        <div class="form-group">
+                            <label>Title - Notary Fee</label>
+                            <input type="number" class="form-control currency-input" name="titleNotaryFee">
+                        </div>
+                        <div class="form-group">
+                            <label>Title - Settlement Fee</label>
+                            <input type="number" class="form-control currency-input" name="titleSettlementFee">
+                        </div>
+                        <div class="form-group">
+                            <label>Title - Title Search Fee</label>
+                            <input type="number" class="form-control currency-input" name="titleSearchFee">
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Totals (Payoff, Costs, Escrow)</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Payoff </label>
+                            <input type="text" class="form-control currency-input" name="payoff">
+                        </div>
+                        <div class="form-group">
+                            <label>Estimated Prepaid & Escrow </label>
+                            <input type="text" class="form-control currency-input" name="estimatedPrepaidAndEscrow">
+                        </div>
+                        <div class="form-group">
+                            <label>Estimate Closing Cost </label>
+                            <input type="text" class="form-control currency-input" name="estimatedClosingCost">
+                        </div>
+                        <div class="form-group">
+                            <label>Other Debts </label>
+                            <input type="number" class="form-control currency-input" name="otherDebts">
+                        </div>
+                        <div class="form-group">
+                            <label>FHA MIP </label>
+                            <input type="number" class="form-control currency-input" name="fhaMIP">
+                        </div>
+                        <div class="form-group">
+                            <label>Other </label>
+                            <input type="number" class="form-control currency-input" name="other">
+                        </div>
+                        <div class="form-group">
+                            <label>Total Due from Borrower at Closing </label>
+                            <input type="number" class="form-control currency-input" name="totalDueFromBorrower">
+                        </div>
+                        <div class="form-group">
+                            <label>Lender Credit  </label>
+                            <input type="number" class="form-control currency-input" name="lenderCredit">
+                        </div>
+                        <div class="form-group">
+                            <label>Borrower Prepaid Fees  </label>
+                            <input type="number" class="form-control currency-input" name="borrowerPrepaidFees">
+                        </div>
+                        <!-- Add this to create a row of empty space -->
+                        <div class="form-group">
+                            <label class="invisible">Spacer</label>
+                            <input type="text" class="form-control invisible" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>FHA/MIP</label>
+                            <input type="text" class="form-control currency-input" name="fhaMIP2">
+                        </div>
+                        <div class="form-group">
+                            <label>Loan Amount</label>
+                            <input type="text" class="form-control currency-input" name="loanAmount">
+                        </div>
+                        <div class="form-group">
+                            <label> Paid Already by or on Behalf of Borrower</label>
+                            <input type="text" class="form-control currency-input" name="paidAlready">
+                        </div>
+                     
+                        <div class="form-group" style="background-color: lightslategray;">
+                            <label style="font-weight: bold;">Total Estimated Funds To/From You:</label>
+                            <input type="text" class="form-control currency-input" name="totalEstimatedFunds">
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="card mb-3 mb-md-4">
+                        
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>FHA/MIP</label>
+                            <input type="text" class="form-control currency-input" name="fhaMIP2">
+                        </div>
+                        <div class="form-group">
+                            <label>Loan Amount</label>
+                            <input type="text" class="form-control currency-input" name="loanAmount">
+                        </div>
+                        <div class="form-group">
+                            <label> Paid Already by or on Behalf of Borrower</label>
+                            <input type="text" class="form-control currency-input" name="paidAlready">
+                        </div>
+                     
+                        <div class="form-group" style="background-color: lightslategray;">
+                            <label style="font-weight: bold;">Total Estimated Funds To/From You:</label>
+                            <input type="text" class="form-control currency-input" name="totalEstimatedFunds">
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+            
+            
+            <!-- Right Column Card placeholder -->
+            <div class="col-12 col-md-6">
+                <!-- Loan Amount Card -->
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Loan Amount: </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Occupancy</label>
+                            <input type="text" class="form-control" name="occupancy">
+                        </div>
+                        <div class="form-group">
+                            <label>Interest Rate</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control percent-input" name="interestRate">
+                                <span class="input-group-text">%</span>
+                            </div>    
+                        </div>
+                        <div class="form-group">
+                            <label>Property Type</label>
+                            <input type="text" class="form-control" name="propertyType">
+                        </div>
+                        <div class="form-group">
+                            <label>2nd Mortgage Amount</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control currency-input" name="secondMortgageAmount">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>2nd Mortgage Rate</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control percent-input" name="secondMortgageRate">
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Taxes & Government Fees: </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Recording Fees Deed</label>
+                            <input type="text" class="form-control currency-input" name="recordingFeesDeed">
+                        </div>
+                        <div class="form-group">
+                            <label>Recording Fees Mortgage</label>
+                            <input type="text" class="form-control currency-input" name="recordingFeesMortgage">
+                        </div>
+                        <div class="form-group">
+                            <label>Transfer Taxes/Tax Stamp</label>
+                            <input type="text" class="form-control currency-input" name="transferTaxes">
+                        </div>
+                        <!-- <div class="form-group">
+                            <label class="invisible">Spacer</label>
+                            <input type="text" class="form-control invisible" disabled>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Prepaids: </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Prepaid Interest</label>
+                            <input type="text" class="form-control currency-input" name="prepaidInterest">
+                        </div>
+                        <!-- <div class="form-group">
+                            <label class="invisible">Spacer</label>
+                            <input type="text" class="form-control invisible" disabled>
+                        </div> -->
+                    </div>
+                </div>
+
+                <!-- Add the new Escrow card here -->
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Escrow at Closing: <span class="float-end" id="totalEscrowRef">$____.__</span></h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-borderless mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td>Taxes</td>
+                                        <td>$<span id="taxesAmountRef">___.__</span> x <span id="taxesMonthsRef">_</span> months</td>
+                                        <td class="text-end">$<span id="taxesTotalRef">_,___.__</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Insurance</td>
+                                        <td>$<span id="insuranceAmountRef">___.__</span> x <span id="insuranceMonthsRef">_</span> months</td>
+                                        <td class="text-end">$<span id="insuranceTotalRef">_,___.__</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Other: </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Remaining Buydown Balance:</label>
+                            <input type="text" class="form-control currency-input" name="remainingBuydownBalance">
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Total Estimated Monthly Housing Payment: </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Principle & Interest:</label>
+                            <input type="text" class="form-control currency-input" name="principleAndInterest">
+                        </div>
+                        <div class="form-group">
+                            <label>2nd Mtg Payment:</label>
+                            <input type="text" class="form-control currency-input" name="secondMortgagePayment">
+                        </div>
+                        <div class="form-group">
+                            <label>Taxes:</label>
+                            <input type="text" class="form-control currency-input" name="taxes">
+                        </div>
+                        <div class="form-group">
+                            <label>Hazard Insurance:</label>
+                            <input type="text" class="form-control currency-input" name="hazardInsurance">
+                        </div>
+                        <div class="form-group">
+                            <label>Mortgage Insurance:</label>
+                            <input type="text" class="form-control currency-input" name="mortgageInsurance">
+                        </div>
+                        <div class="form-group">
+                            <label>HOA:</label>
+                            <input type="text" class="form-control currency-input" name="hoa">
+                        </div>
+                        <div class="form-group" style="background-color: lightslategray;">
+                            <label style="font-weight: bold;">New Monthly Payment:</label>
+                            <input type="text" class="form-control currency-input" name="newMonthlyPayment">
+                        </div>
+                        <div class="form-group">
+                            <label>Old Monthly Payment:</label>
+                            <input type="text" class="form-control currency-input" name="oldMonthlyPayment">
+                        </div>
+                        <div class="form-group">
+                            <label>Savings:</label>
+                            <input type="text" class="form-control currency-input" name="savings">
+                        </div>
+                        <div class="form-group">
+                            <label>Payment Break Even (in months):</label>
+                            <input type="text" class="form-control" name="paymentBreakEven">
+                        </div>
+                        <div class="form-group">
+                            <label>Interest Break Even (in months):</label>
+                            <input type="text" class="form-control" name="interestBreakEven">
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Closing Schedule </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Closing Date:</label>
+                            <input type="date" class="form-control" name="closingDate">
+                        </div>
+                        <div class="form-group">
+                            <label>No Scheduled Payment:</label>
+                            <input type="date" class="form-control" name="noScheduledPayment">
+                        </div>
+                        <div class="form-group">
+                            <label>Date of 1st Payment:</label>
+                            <input type="date" class="form-control" name="dateOf1stPayment">
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3 mb-md-4">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Escrow Refund (mailed w/in 30 days):</label>
+                            <input type="text" class="form-control currency-input" name="escrowRefund">
+                        </div>
+                        <div class="form-group">
+                            <label>$  of Payment(s) skipped:</label>
+                            <input type="text" class="form-control currency-input" name="amtOfPaymentsSkipped">
+                        </div>
+                        <div class="form-group">
+                            <label>Total Estimated Funds From/To You:</label>
+                            <input type="text" class="form-control currency-input" name="totalEstimatedFunds">
+                        </div>
+                        <div class="form-group" style="background-color: lightseagreen;">
+                            <label style="font-weight: bold;">Surplus:</label>
+                            <input type="text" class="form-control currency-input" name="surplus">
+                        </div>
+                    </div>
+                </div>
+
+
+                
+            </div>
+        </div>
+        </form>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/js/main.js"></script>
+    </body>
+    </html>

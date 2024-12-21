@@ -87,6 +87,5 @@
             </div>
         </form>
     </div>
-    <script src="/js/mortgage-calc.js"></script>
 </body>
 </html>
