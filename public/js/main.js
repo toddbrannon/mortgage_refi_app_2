@@ -72,60 +72,71 @@
 
     // Monthly Payment Calculations
     function updateCalculations() {
+        console.log('updateCalculations triggered');
+    
+        // Retrieve and parse input values
         const inputs = {
-            principleInput: parseFloat(document.getElementById('principleInput').value) || 0,
-            interestInput: parseFloat(document.getElementById('interestInput').value) || 0,
-            taxesAnnual: parseFloat(document.getElementById('taxesAnnual').value) || 0,
-            insuranceInput: parseFloat(document.getElementById('insuranceInput').value) || 0,
-            escrowInput: parseFloat(document.getElementById('escrowInput').value) || 0
+            principleInput: parseFloat(document.getElementById('principleInput')?.value?.replace(/[^0-9.-]+/g, '')) || 0,
+            interestInput: parseFloat(document.getElementById('interestInput')?.value?.replace(/[^0-9.-]+/g, '')) || 0,
+            taxesAnnual: parseFloat(document.getElementById('taxesAnnual')?.value) || 0,
+            insuranceInput: parseFloat(document.getElementById('insuranceInput')?.value) || 0,
+            escrowInput: parseFloat(document.getElementById('escrowInput')?.value) || 0
         };
-
-        function formatResult(value) {
-            return Object.values(inputs).some(val => val !== 0) 
-                ? value.toFixed(2) 
-                : '$0.00';
-        }
-
-        const taxesMonthly = inputs.taxesAnnual / 12;
-        
-        // Update all calculated fields
+    
+        // Log parsed inputs for debugging
+        console.log('Parsed Inputs:', inputs);
+    
+        // Perform calculations
         const calculations = {
-            taxesMonthly: { value: formatResult(taxesMonthly), readOnly: true },
-            taxesCalc: { value: formatResult(inputs.escrowInput + inputs.insuranceInput), readOnly: true },
-            insuranceCalc: { value: formatResult(inputs.escrowInput - taxesMonthly), readOnly: true },
-            currentPITIFirst: { value: formatResult(inputs.principleInput + inputs.interestInput + taxesMonthly + inputs.insuranceInput), readOnly: true },
-            'currentP&IorIOFirst': { value: formatResult(inputs.principleInput + inputs.interestInput), readOnly: true },
-            currentMonthlyMI: { value: formatResult(inputs.principleInput + inputs.interestInput + inputs.escrowInput), readOnly: true },
-            currentAnnualTaxes: { value: formatResult(taxesMonthly * 12), readOnly: true },
-            currentAnnualInsurance: { value: formatResult(inputs.insuranceInput), readOnly: true },
-            totalPITIFirstSecond: { value: formatResult(0), readOnly: true }, // Add calculation
-            totalPIMI12Other: { value: formatResult(0), readOnly: true }  // Add calculation
+            taxesMonthly: inputs.taxesAnnual / 12,
+            taxesCalc: inputs.escrowInput + inputs.insuranceInput,
+            insuranceCalc: inputs.escrowInput - (inputs.taxesAnnual / 12),
+            pitiFull: inputs.principleInput + inputs.interestInput + (inputs.taxesAnnual / 12) + inputs.insuranceInput,
+            piPayment: inputs.principleInput + inputs.interestInput,
+            pimiPayment: inputs.principleInput + inputs.interestInput + inputs.escrowInput,
+            currentAnnualTaxes: inputs.taxesAnnual,
+            currentAnnualInsurance: inputs.insuranceInput
         };
-
-        // Update DOM and state for all calculated fields
-        Object.entries(calculations).forEach(([id, config]) => {
+    
+        // Log calculations for debugging
+        console.log('Calculated Values:', calculations);
+    
+        // Format and update calculated fields in the DOM
+        Object.entries(calculations).forEach(([id, value]) => {
             const element = document.getElementById(id);
             if (element) {
-                element.value = config.value;
-                if (config.readOnly) {
-                    element.readOnly = true;
-                    element.style.backgroundColor = '#C6FB9D';
-                    element.style.cursor = 'not-allowed';
+            // Apply currency formatting for specific fields
+                if (id === 'currentAnnualTaxes' || id === 'currentAnnualInsurance' || id === 'currentMonthlyMI') {
+                    element.value = standardFormatCurrency(value); // Format as currency
+                } else {
+                    element.value = value.toFixed(2); // Default to number formatting
                 }
-                MortgageState.update(id, config.value);
+
+                element.readOnly = true; // Make read-only for calculated fields
+                element.style.backgroundColor = '#C6FB9D';
+                element.style.cursor = 'not-allowed';
+
+                console.log(`Updated ${id}:`, element.value);
+            } else {
+                console.warn(`Field ${id} not found in DOM.`);
             }
         });
+    
+        // Update MortgageState for application state tracking
+        if (typeof MortgageState !== 'undefined') {
+            Object.entries(calculations).forEach(([id, value]) => {
+                MortgageState.update(id, value.toFixed(2));
+            });
+        }
     }
+    
 
     document.addEventListener('DOMContentLoaded', function () {
-        const form = document.getElementById('mortgageForm');
-        const ifwForm = document.getElementById('ifwForm');
-        
-        // Setup calculated fields styling
+        // Setup calculated fields
         const calculatedFields = [
             'taxesMonthly', 'taxesCalc', 'insuranceCalc', 'currentPITIFirst',
-            'currentP&IorIOFirst', 'currentMonthlyMI', 'currentAnnualTaxes', 'currentAnnualInsurance',
-            'totalPITIFirstSecond', 'totalPIMI12Other'
+            'currentP&IorIOFirst', 'currentMonthlyMI', 'currentAnnualTaxes', 
+            'currentAnnualInsurance'
         ];
 
         calculatedFields.forEach(id => {
@@ -138,39 +149,40 @@
             }
         });
 
-        // Link escrow balance to estimated escrow refund
-        const escrowBalance = document.getElementById('escrowBalance');
-        const estimatedEscrowRefund = document.getElementById('estimatedEscrowRefund');
-        if (escrowBalance && estimatedEscrowRefund) {
-            escrowBalance.addEventListener('input', function () {
-                estimatedEscrowRefund.value = this.value;
-                MortgageState.update('estimatedEscrowRefund', this.value);
-            });
-            escrowBalance.addEventListener('blur', function () {
-                estimatedEscrowRefund.dispatchEvent(new Event('blur'));
-            });
-        }
-
         // Currency Input Formatting
         document.querySelectorAll('.currency-input').forEach(input => {
-            let rawValue = '';
-            
-            input.addEventListener('input', function(e) {
-                rawValue = e.target.value.replace(/[^\d.]/g, '');
-                e.target.value = rawValue;
-                MortgageState.update(this.id, rawValue);
+            // Initialize raw value
+            input.dataset.rawValue = '';
+
+            // Handle input event: Keep raw value and update the display
+            input.addEventListener('input', function (e) {
+                this.dataset.rawValue = e.target.value.replace(/[^\d.]/g, ''); // Extract numbers only
+                e.target.value = this.dataset.rawValue; // Show raw value during typing
+                MortgageState.update(this.id, this.dataset.rawValue); // Update app state
             });
 
-            input.addEventListener('blur', function() {
-                this.value = standardFormatCurrency(rawValue);
-                MortgageState.update(this.id, this.value);
+            // Handle blur event: Format the raw value as currency
+            input.addEventListener('blur', function () {
+                this.value = standardFormatCurrency(this.dataset.rawValue); // Format as currency
+                MortgageState.update(this.id, this.value); // Update app state with formatted value
             });
 
-            input.addEventListener('focus', function() {
-                this.value = rawValue;
+            // Handle focus event: Revert to raw value for editing
+            input.addEventListener('focus', function () {
+                this.value = this.dataset.rawValue; // Show raw value on focus
             });
         });
 
+        // Helper function to format values as currency
+        function standardFormatCurrency(value) {
+            const numValue = parseFloat(value) || 0; // Safely parse the value
+            return numValue.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
         // Percentage Input Formatting
         const percentageInputs = document.querySelectorAll('.percentage-input');
         percentageInputs.forEach(input => {
@@ -192,41 +204,18 @@
             });
         });
 
-        // Add input listeners for calculations
+        // In your DOMContentLoaded event handler, modify the listener setup:
         ['principleInput', 'interestInput', 'taxesAnnual', 'insuranceInput', 'escrowInput'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 element.addEventListener('input', updateCalculations);
+                element.addEventListener('change', updateCalculations);
+                element.addEventListener('blur', updateCalculations);
             }
         });
 
         // Initialize calculations
         updateCalculations();
-
-        // Initialize payoff view if present
-        if (document.getElementById('payoffForm')) {
-            initializePayoffView();
-        }
-
-        // Add form submission handler
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                // ... rest of form submission logic
-            });
-        }
     });
-
-    // Initialize payoff view
-    function initializePayoffView() {
-        MortgageState.subscribe(updatePayoffFields);
-    }
-
-    // Update payoff fields based on state changes
-    function updatePayoffFields(data) {
-        if (!document.getElementById('payoffForm')) return;
-        
-        // ... payoff view update logic
-    }
 
 })();

@@ -79,6 +79,15 @@ function clearAllInputs() {
 function populateTestData() {
     // Basic Information
     document.getElementById('borrowerName').value = 'John Smith';
+
+    // Address Section
+    document.getElementById('address').value = '123 Main St';
+    document.getElementById('locality').value = 'Springfield';
+    document.getElementById('state').value = 'IL'; // Assuming this value is in the <option> value attribute
+    document.getElementById('postalCode').value = '62704';
+
+    // Dispatch change event for state dropdown
+    document.getElementById('state').dispatchEvent(new Event('change', { bubbles: true }));
     
     // Mortgage Details
     setCurrencyValue('mortgageBalance', '425000.00');
