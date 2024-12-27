@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-
+ 
     // State management for cross-view data
     const MortgageState = {
         data: {},
@@ -27,7 +27,7 @@
             this.listeners.forEach(callback => callback(this.data));
         }
     };
-
+ 
     // Utility Functions
     function formatCurrency(value) {
         value = value.replace(/[^\d.]/g, '');
@@ -50,7 +50,7 @@
             maximumFractionDigits: 2
         });
     }
-
+ 
     function standardFormatCurrency(value) {
         const numValue = parseFloat(value) || 0;
         return numValue.toLocaleString('en-US', {
@@ -60,7 +60,7 @@
             maximumFractionDigits: 2
         });
     }
-
+ 
     function formatPercentage(value) {
         value = value.replace(/[^\d.]/g, '');
         let numValue = parseFloat(value);
@@ -69,12 +69,16 @@
         }
         return numValue + '%';
     }
-
-    // Monthly Payment Calculations
+ 
+    function parseCurrencyValue(value) {
+        if (!value) return 0;
+        return parseFloat(value.replace(/[^0-9.-]+/g, '')) || 0;
+    }
+ 
+    // Monthly Payment Breakdown Calculations
     function updateCalculations() {
         console.log('updateCalculations triggered');
     
-        // Retrieve and parse input values
         const inputs = {
             principleInput: parseFloat(document.getElementById('principleInput')?.value?.replace(/[^0-9.-]+/g, '')) || 0,
             interestInput: parseFloat(document.getElementById('interestInput')?.value?.replace(/[^0-9.-]+/g, '')) || 0,
@@ -83,10 +87,8 @@
             escrowInput: parseFloat(document.getElementById('escrowInput')?.value) || 0
         };
     
-        // Log parsed inputs for debugging
         console.log('Parsed Inputs:', inputs);
     
-        // Perform calculations
         const calculations = {
             taxesMonthly: inputs.taxesAnnual / 12,
             taxesCalc: inputs.escrowInput + inputs.insuranceInput,
@@ -98,39 +100,112 @@
             currentAnnualInsurance: inputs.insuranceInput
         };
     
-        // Log calculations for debugging
         console.log('Calculated Values:', calculations);
     
-        // Format and update calculated fields in the DOM
         Object.entries(calculations).forEach(([id, value]) => {
             const element = document.getElementById(id);
             if (element) {
-            // Apply currency formatting for specific fields
                 if (id === 'currentAnnualTaxes' || id === 'currentAnnualInsurance' || id === 'currentMonthlyMI') {
-                    element.value = standardFormatCurrency(value); // Format as currency
+                    element.value = standardFormatCurrency(value);
                 } else {
-                    element.value = value.toFixed(2); // Default to number formatting
+                    element.value = value.toFixed(2);
                 }
-
-                element.readOnly = true; // Make read-only for calculated fields
+ 
+                element.readOnly = true;
                 element.style.backgroundColor = '#C6FB9D';
                 element.style.cursor = 'not-allowed';
-
+ 
                 console.log(`Updated ${id}:`, element.value);
             } else {
                 console.warn(`Field ${id} not found in DOM.`);
             }
         });
     
-        // Update MortgageState for application state tracking
         if (typeof MortgageState !== 'undefined') {
             Object.entries(calculations).forEach(([id, value]) => {
                 MortgageState.update(id, value.toFixed(2));
             });
         }
     }
-    
-
+ 
+    // IFW Form Calculations
+    function calculateInterestDue(balance, rate, lastPaymentDate, fundingDate, cushion = 6) {
+        if (!balance || !rate || !lastPaymentDate || !fundingDate) return 0;
+        const days = (new Date(fundingDate) - new Date(lastPaymentDate)) / (1000 * 60 * 60 * 24);
+        return (balance * (rate / 100) / 365) * (days + cushion);
+    }
+ 
+    function updateIFWFields(data) {
+        const fieldMappings = {
+            'lastPaymentDate': {
+                sourceId: 'lastPaymentDate',
+                targetName: 'lastPaymentDate'
+            },
+            'mortgageBalance': {
+                sourceId: 'mortgageBalance',
+                targetName: 'balanceOn1st'
+            },
+            'current2ndMtgBal': {
+                sourceId: 'current2ndMtgBal',
+                targetName: 'balanceOn2nd'
+            }
+        };
+ 
+        Object.entries(fieldMappings).forEach(([sourceId, mapping]) => {
+            const sourceValue = MortgageState.get(sourceId);
+            if (sourceValue) {
+                const targetElement = document.querySelector(`[name="${mapping.targetName}"]`);
+                if (targetElement) {
+                    targetElement.value = sourceValue;
+                }
+            }
+        });
+ 
+        const firstBalance = parseCurrencyValue(MortgageState.get('mortgageBalance'));
+        const firstRate = parseFloat(MortgageState.get('mortgageRate'));
+        const lastPaymentDate = MortgageState.get('lastPaymentDate');
+        const fundingDate = MortgageState.get('fundingDate');
+ 
+        const firstInterestDue = calculateInterestDue(
+            firstBalance,
+            firstRate,
+            lastPaymentDate,
+            fundingDate
+        );
+ 
+        const interestDue1stElement = document.querySelector('[name="interestDue1st"]');
+        if (interestDue1stElement) {
+            interestDue1stElement.value = standardFormatCurrency(firstInterestDue);
+        }
+ 
+        const total1stPayoff = firstBalance + firstInterestDue;
+        const total1stPayoffElement = document.querySelector('[name="total1stPayoff"]');
+        if (total1stPayoffElement) {
+            total1stPayoffElement.value = standardFormatCurrency(total1stPayoff);
+        }
+ 
+        const secondBalance = parseCurrencyValue(MortgageState.get('current2ndMtgBal'));
+        const secondRate = parseFloat(MortgageState.get('current2ndMtgRate'));
+ 
+        const secondInterestDue = calculateInterestDue(
+            secondBalance,
+            secondRate,
+            lastPaymentDate,
+            fundingDate
+        );
+ 
+        const interestDue2ndElement = document.querySelector('[name="interestDue2nd"]');
+        if (interestDue2ndElement) {
+            interestDue2ndElement.value = standardFormatCurrency(secondInterestDue);
+        }
+ 
+        const total2ndPayoff = secondBalance + secondInterestDue;
+        const total2ndPayoffElement = document.querySelector('[name="total2ndPayoff"]');
+        if (total2ndPayoffElement) {
+            total2ndPayoffElement.value = standardFormatCurrency(total2ndPayoff);
+        }
+    }
+ 
     document.addEventListener('DOMContentLoaded', function () {
         // Setup calculated fields
         const calculatedFields = [
@@ -138,7 +213,7 @@
             'currentP&IorIOFirst', 'currentMonthlyMI', 'currentAnnualTaxes', 
             'currentAnnualInsurance'
         ];
-
+ 
         calculatedFields.forEach(id => {
             const field = document.getElementById(id);
             if (field) {
@@ -148,41 +223,27 @@
                 field.style.cursor = 'not-allowed';
             }
         });
-
+ 
         // Currency Input Formatting
         document.querySelectorAll('.currency-input').forEach(input => {
-            // Initialize raw value
             input.dataset.rawValue = '';
-
-            // Handle input event: Keep raw value and update the display
+ 
             input.addEventListener('input', function (e) {
-                this.dataset.rawValue = e.target.value.replace(/[^\d.]/g, ''); // Extract numbers only
-                e.target.value = this.dataset.rawValue; // Show raw value during typing
-                MortgageState.update(this.id, this.dataset.rawValue); // Update app state
+                this.dataset.rawValue = e.target.value.replace(/[^\d.]/g, '');
+                e.target.value = this.dataset.rawValue;
+                MortgageState.update(this.id, this.dataset.rawValue);
             });
-
-            // Handle blur event: Format the raw value as currency
+ 
             input.addEventListener('blur', function () {
-                this.value = standardFormatCurrency(this.dataset.rawValue); // Format as currency
-                MortgageState.update(this.id, this.value); // Update app state with formatted value
+                this.value = standardFormatCurrency(this.dataset.rawValue);
+                MortgageState.update(this.id, this.value);
             });
-
-            // Handle focus event: Revert to raw value for editing
+ 
             input.addEventListener('focus', function () {
-                this.value = this.dataset.rawValue; // Show raw value on focus
+                this.value = this.dataset.rawValue;
             });
         });
-
-        // Helper function to format values as currency
-        function standardFormatCurrency(value) {
-            const numValue = parseFloat(value) || 0; // Safely parse the value
-            return numValue.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
-        }
+ 
         // Percentage Input Formatting
         const percentageInputs = document.querySelectorAll('.percentage-input');
         percentageInputs.forEach(input => {
@@ -193,18 +254,17 @@
                 e.target.value = rawValue;
                 MortgageState.update(this.id, rawValue);
             });
-
+ 
             input.addEventListener('blur', function() {
                 this.value = formatPercentage(rawValue);
                 MortgageState.update(this.id, this.value);
             });
-
+ 
             input.addEventListener('focus', function() {
                 this.value = rawValue;
             });
         });
-
-        // In your DOMContentLoaded event handler, modify the listener setup:
+ 
         ['principleInput', 'interestInput', 'taxesAnnual', 'insuranceInput', 'escrowInput'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
@@ -213,9 +273,11 @@
                 element.addEventListener('blur', updateCalculations);
             }
         });
-
-        // Initialize calculations
+ 
         updateCalculations();
+        
+        // Initialize IFW form updates
+        MortgageState.subscribe(updateIFWFields);
     });
-
-})();
+ 
+ })();
