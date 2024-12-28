@@ -139,11 +139,55 @@
                                         </tr>
                                         <tr>
                                             <td><label class="lbl-left" for="ficoScore">FICO Score</label></td>
-                                            <td><input type="number" class="form-control" id="ficoScore" name="ficoScore" required></td>
+                                            <td><input type="text" class="form-control" id="ficoScore" name="ficoScore" required></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="lbl-left" for="loanPurpose">Loan Purpose</label></td>
+                                            <td>
+                                                <select class="form-control" id="loanPurpose" name="loanPurpose" required>
+                                                    <option value="">Select loan purpose</option>
+                                                    <option value="Cash Out Refinance">Cash Out Refinance</option>
+                                                    <option value="Purchase">Purchase</option>
+                                                    <option value="Rate/Term Refinance">Rate/Term Refinance</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="lbl-left" for="occupancy">Occupancy</label></td>
+                                            <td>
+                                                <select class="form-control" id="occupancy" name="occupancy" required>
+                                                    <option value="">Select occupancy</option>
+                                                    <option value="Investment">Investment</option>
+                                                    <option value="Primary">Primary</option>
+                                                    <option value="Second Home">Second Home</option>
+                                                </select>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td><label class="lbl-left" for="newInterestRate">New Interest Rate (%)</label></td>
                                             <td><input type="number" class="form-control" id="newInterestRate" name="newInterestRate" step="0.0001" min="0" max="100" required></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="lbl-left" for="propertyType">Property Type</label></td>
+                                            <td>
+                                                <select class="form-control" id="propertyType" name="propertyType" required>
+                                                    <option value="">Select property type</option>
+                                                    <option value="Condo">Condo</option>
+                                                    <option value="PUD">PUD</option>
+                                                    <option value="Single Family">Single Family</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="lbl-left" for="loanType">What type of loan is this?</label></td>
+                                            <td>
+                                                <select class="form-control" id="loanType" name="loanType" required>
+                                                    <option value="">Select property type</option>
+                                                    <option value="CONV">CONV</option>
+                                                    <option value="FHA">FHA</option>
+                                                    <option value="VA">VA</option>
+                                                </select>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -309,7 +353,7 @@
                     <div class="col-12 col-md-6">
                         <div class="card mb-3 mb-md-4">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Property Value: </h5>
+                                <h5 class="card-title mb-0">Property Value: <input type="text" class="form-control" name="propertyValue"></h5>
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
@@ -322,7 +366,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>FICO</label>
-                                    <input type="number" class="form-control" name="fico" min="300" max="850">
+                                    <input type="number" class="form-control" name="fico">
                                 </div>
                                 <div class="form-group">
                                     <label>LTV</label>

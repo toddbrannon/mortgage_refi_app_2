@@ -148,6 +148,22 @@
             'current2ndMtgBal': {
                 sourceId: 'current2ndMtgBal',
                 targetName: 'balanceOn2nd'
+            },
+            'loanPurpose': {
+            sourceId: 'loanPurpose',
+            targetName: 'loanPurpose'
+            },
+            'loanType': {
+            sourceId: 'loanType',
+            targetName: 'program'
+            },
+            'appraisedValue': {
+                sourceId: 'appraisedValue',
+                targetName: 'propertyValue'
+            },
+            'ficoScore':{
+            sourceId: 'ficoScore',
+            targetName: 'fico'
             }
         };
  
@@ -157,7 +173,12 @@
                 const targetElement = document.querySelector(`[name="${mapping.targetName}"]`);
                 if (targetElement) {
                     targetElement.value = sourceValue;
+                    console.log(`Updated ${mapping.targetName} with value:`, sourceValue);
+                } else {
+                    console.warn(`Target element for ${mapping.targetName} not found.`);
                 }
+            } else {
+                console.warn(`Source value for ${sourceId} not found in MortgageState.`);
             }
         });
  
@@ -273,7 +294,26 @@
                 element.addEventListener('blur', updateCalculations);
             }
         });
- 
+
+        // Add event listener for loan purpose select
+        const loanPurposeSelect = document.getElementById('loanPurpose');
+        if (loanPurposeSelect) {
+            loanPurposeSelect.addEventListener('change', function(e) {
+                MortgageState.update('loanPurpose', e.target.value);
+                const ifwLoanPurpose = document.querySelector('input[name="loanPurpose"]');
+                if (ifwLoanPurpose) {
+                    ifwLoanPurpose.value = e.target.value;
+                }
+            });
+        }
+
+        const loanTypeSelect = document.getElementById('loanType');
+        if (loanTypeSelect) {
+            loanTypeSelect.addEventListener('change', function(e) {
+                MortgageState.update('loanType', e.target.value);
+            });
+        }
+
         updateCalculations();
         
         // Initialize IFW form updates
