@@ -29,49 +29,23 @@ function setPercentageValue(id, value) {
 function clearAllInputs() {
     const form = document.getElementById('mortgageForm');
     if (form) {
-        // Clear text, number, and date inputs
+        // Clear all input elements
         form.querySelectorAll('input').forEach(input => {
             input.value = '';
         });
 
-        // Clear any selects
+        // Clear all select elements
         form.querySelectorAll('select').forEach(select => {
             select.selectedIndex = 0;
         });
 
-        // Clear read-only calculated fields
-        const calculatedFields = [
-            'taxesMonthly', 'taxesCalc', 'insuranceCalc', 'currentPITIFirst',
-            'currentP&IorIOFirst', 'currentMonthlyMI', 'currentAnnualTaxes', 
-            'currentAnnualInsurance', 'totalPITIFirstSecond', 'totalPIMI12Other'
-        ];
-
-        // Clear Monthly Payment Breakdown inputs
-        const breakdownInputs = [
-            'principleInput',    // Value column
-            'interestInput',     // Value column
-            'taxesMonthly',      // Value column (calculated)
-            'taxesCalc',         // Calculation column (calculated)
-            'taxesAnnual',       // Annual column
-            'insuranceInput',    // Value column
-            'insuranceCalc',     // Calculation column (calculated)
-            'escrowInput',       // Value column
-            'escrowBalanceInput' // Value column
-        ];
-
-        breakdownInputs.forEach(id => {
-            const input = document.getElementById(id);
-            if (input) {
-                input.value = '';
-            }
+        // Clear all textarea elements
+        form.querySelectorAll('textarea').forEach(textarea => {
+            textarea.value = '';
         });
 
-        calculatedFields.forEach(id => {
-            const field = document.getElementById(id);
-            if (field) {
-                field.value = '';
-            }
-        });
+        // Clear the MortgageState if necessary
+        MortgageState.clear();
     }
 }
 
@@ -176,17 +150,17 @@ document.addEventListener('DOMContentLoaded', function() {
         testDataButton.textContent = 'Add Test Data';
         testDataButton.onclick = populateTestData;
         
-        // Add clear form button
-        const clearButton = document.createElement('button');
-        clearButton.type = 'button';
-        clearButton.id = 'clearForm';
-        clearButton.className = 'btn btn-outline-secondary';
-        clearButton.textContent = 'Clear Form';
-        clearButton.onclick = clearAllInputs;
+        // Add clear form button - MOVED TO main.js FOR PRODUCTION 12/28/24
+        // const clearButton = document.createElement('button');
+        // clearButton.type = 'button';
+        // clearButton.id = 'clearForm';
+        // clearButton.className = 'btn btn-outline-secondary';
+        // clearButton.textContent = 'Clear Form';
+        // clearButton.onclick = clearAllInputs;
         
         // Add buttons to container
         buttonContainer.appendChild(testDataButton);
-        buttonContainer.appendChild(clearButton);
+        // buttonContainer.appendChild(clearButton);
         
         // Insert at top of form
         form.insertBefore(buttonContainer, form.firstChild);

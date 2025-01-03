@@ -28,6 +28,13 @@ app.use('/escrow', require('./routes/escrow'));
 app.use('/refi_checker', require('./routes/refi_checker'));
 
 
+app.use((req, res) => {
+    // Instead of res.render('404')
+    res.status(404).send('404 - Page Not Found');
+    // Or render your existing error template
+    // res.status(404).render('error', { message: 'Page Not Found' });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);

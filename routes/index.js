@@ -37,14 +37,19 @@ router.get('/', async (req, res) => {
     const defaultDate = nextMonth.toISOString().split('T')[0];
 
     try {
-        const states = await fetchStates();
+        const states = await fetchStates(); 
+        const loanAmount = 0; // Set a default value for loanAmount
+        const propertyValue = 0; // Set a default value for loanAmount
+        
         // Render app.ejs instead of index.ejs
         res.render('app', {
             title: 'Mortgage Calculator',
-            activeTab: req.query.tab || 'input',  // Allow tab selection via query param
+            activeTab: req.query.tab || 'input',
             defaultDate: defaultDate,
             states: states,
-            smartyApiKey: process.env.SMARTY_API_KEY
+            smartyApiKey: process.env.SMARTY_API_KEY,
+            loanAmount: loanAmount,
+            propertyValue: propertyValue // Include loanAmount in the render context
         });
     } catch (error) {
         res.render('app', {
@@ -56,6 +61,8 @@ router.get('/', async (req, res) => {
         });
     }
 });
+
+
 
 // Single endpoint for form submissions
 router.post('/submit', (req, res) => {
